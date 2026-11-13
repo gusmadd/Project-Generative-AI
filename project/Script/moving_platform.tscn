@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://Script/moving_platform.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://Asset/Level Asset/Minus 1.png" id="2_platform"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_platform"]
+size = Vector2(150, 50)
+
+[node name="MovingPlatform" type="AnimatableBody2D"]
+sync_to_physics = true
+script = ExtResource("1_script")
+travel_distance = 200.0
+move_speed = 100.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("2_platform")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_platform")

@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://c16gts6yy7c7h"]
+
+[ext_resource type="Script" uid="uid://dk4r1p7q5ycuu" path="res://Script/rotating_saw.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://xj2v72r87fen" path="res://Asset/Gerigi pisau/Revolusi FIX.png" id="2_orbit"]
+[ext_resource type="Texture2D" uid="uid://nyij1tk7aork" path="res://Asset/Gerigi pisau/x_putar_01.png" id="3_jhu18"]
+[ext_resource type="Texture2D" uid="uid://cos1sl7u00mmd" path="res://Asset/Gerigi pisau/x_putar_02.png" id="4_r7wmi"]
+[ext_resource type="Texture2D" uid="uid://c6q64pir8sfb1" path="res://Asset/Gerigi pisau/x_putar_03.png" id="5_ud7u6"]
+[ext_resource type="Texture2D" uid="uid://c3uu28adywwvp" path="res://Asset/Gerigi pisau/x_putar_04.png" id="6_0ai2a"]
+[ext_resource type="Texture2D" uid="uid://bbhh4t6mfvduk" path="res://Asset/Gerigi pisau/x_putar_05.png" id="7_qaled"]
+[ext_resource type="Texture2D" uid="uid://b76qhio6jvaod" path="res://Asset/Gerigi pisau/x_putar_06.png" id="8_gwwsj"]
+[ext_resource type="Texture2D" uid="uid://b0iv8p8ts675n" path="res://Asset/Gerigi pisau/x_putar_07.png" id="9_ruo7d"]
+[ext_resource type="Texture2D" uid="uid://dgymcd4waey8v" path="res://Asset/Gerigi pisau/x_putar_08.png" id="10_1p6br"]
+[ext_resource type="Texture2D" uid="uid://bk2n0pb0jspun" path="res://Asset/Gerigi pisau/x_putar_09.png" id="11_v45mt"]
+[ext_resource type="Texture2D" uid="uid://ctuaprn1mu5m8" path="res://Asset/Gerigi pisau/x_putar_10.png" id="12_ggbd1"]
+[ext_resource type="Texture2D" uid="uid://blpxqadt1ghms" path="res://Asset/Gerigi pisau/x_putar_11.png" id="13_lof7a"]
+[ext_resource type="Texture2D" uid="uid://ctpiagm047l7j" path="res://Asset/Gerigi pisau/x_putar_12.png" id="14_00ful"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rxf21"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_jhu18")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_r7wmi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ud7u6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_0ai2a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_qaled")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_gwwsj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ruo7d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_1p6br")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_v45mt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ggbd1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_lof7a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_00ful")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_saw"]
+resource_local_to_scene = true
+radius = 20.0
+
+[node name="RotatingSaw" type="Node2D" unique_id=1881011801]
+position = Vector2(588, 413)
+script = ExtResource("1_script")
+orbit_radius = 90.0
+hitbox_radius = 20.0
+animation_speed = 6.0
+
+[node name="OrbitGuide" type="Sprite2D" parent="." unique_id=1076920693]
+modulate = Color(1, 1, 1, 0.16078432)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_orbit")
+
+[node name="SawSprite" type="AnimatedSprite2D" parent="." unique_id=1684294348]
+position = Vector2(49.01736, -75.48045)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_rxf21")
+autoplay = "default"
+frame = 3
+frame_progress = 0.40116996
+speed_scale = 3.0
+
+[node name="SawArea" type="Area2D" parent="." unique_id=1833133092]
+position = Vector2(49.01736, -75.48045)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SawArea" unique_id=78827321]
+position = Vector2(-2, 2)
+shape = SubResource("CircleShape2D_saw")

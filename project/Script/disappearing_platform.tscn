@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://b41rsj5oo7gl0"]
+
+[ext_resource type="Script" uid="uid://br1tnc2bs6bg" path="res://Script/disappearing_platform.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://bgxh4qb4ednep" path="res://Asset/Level Asset/Minus 1.png" id="2_platform"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_platform"]
+size = Vector2(150, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger"]
+size = Vector2(150, 50)
+
+[node name="DisappearingPlatform" type="StaticBody2D" unique_id=54284983]
+script = ExtResource("1_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=591829672]
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("2_platform")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=236089223]
+shape = SubResource("RectangleShape2D_platform")
+
+[node name="Trigger" type="Area2D" parent="." unique_id=1003395196]
+position = Vector2(0, -24)
+collision_layer = 0
+collision_mask = 1
+monitoring = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger" unique_id=8008195]
+position = Vector2(0, 24)
+shape = SubResource("RectangleShape2D_trigger")

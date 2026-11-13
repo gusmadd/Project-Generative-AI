@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bdpw2jjnx72y1"]
+
+[ext_resource type="Script" uid="uid://b2tuxw04bba8j" path="res://Script/multi_rotating_saw.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://xj2v72r87fen" path="res://Asset/Gerigi pisau/Revolusi FIX.png" id="2_orbit"]
+
+[node name="MultiRotatingSaw" type="Node2D" unique_id=1431926462]
+script = ExtResource("1_script")
+blade_count = 3
+
+[node name="OrbitGuide" type="Sprite2D" parent="." unique_id=522095403]
+modulate = Color(1, 1, 1, 0.16078432)
+scale = Vector2(0.5859375, 0.5859375)
+texture = ExtResource("2_orbit")
+
+[node name="Blades" type="Node2D" parent="." unique_id=1851347785]

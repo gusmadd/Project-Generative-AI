@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://ciep11xh6po35"]
+
+[ext_resource type="Script" uid="uid://ds4r1wokqnjqq" path="res://Script/phi_trampoline.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://c0c3air6oydc4" path="res://Asset/Phi/Phi idle/phi_idle_02.png" id="3_6efbp"]
+[ext_resource type="Texture2D" uid="uid://cxpd4gt8gfdv1" path="res://Asset/Phi/Phi idle/phi_idle_03.png" id="4_0n4o8"]
+[ext_resource type="Texture2D" uid="uid://xgsxkm5w0grf" path="res://Asset/Phi/Phi idle/phi_idle_04.png" id="5_oxlwr"]
+[ext_resource type="Texture2D" uid="uid://dg5ux2o0rb835" path="res://Asset/Phi/Phi idle/phi_idle_06.png" id="7_2vs5r"]
+[ext_resource type="Texture2D" uid="uid://d20kbwwaee3xo" path="res://Asset/Phi/Phi idle/phi_idle_07.png" id="8_vihrs"]
+[ext_resource type="Texture2D" uid="uid://waorv7bsv4vm" path="res://Asset/Phi/Phi idle/phi_idle_08.png" id="9_4rlao"]
+[ext_resource type="Texture2D" uid="uid://dso3fi8hshqfv" path="res://Asset/Phi/Phi trigger/phi_dipijak_01.png" id="10_crl04"]
+[ext_resource type="Texture2D" uid="uid://fwai2id2r2li" path="res://Asset/Phi/Phi trigger/phi_dipijak_02.png" id="11_ydgyl"]
+[ext_resource type="Texture2D" uid="uid://cq8n2hk7mio32" path="res://Asset/Phi/Phi trigger/phi_dipijak_03.png" id="12_6d8bb"]
+[ext_resource type="Texture2D" uid="uid://d1npxnaarjwwl" path="res://Asset/Phi/Phi trigger/phi_dipijak_04.png" id="13_rpfne"]
+[ext_resource type="Texture2D" uid="uid://dp2kg7ambfxjn" path="res://Asset/Phi/Phi trigger/phi_dipijak_05.png" id="14_1coik"]
+[ext_resource type="Texture2D" uid="uid://bswiq2knqreeh" path="res://Asset/Phi/Phi trigger/phi_dipijak_06.png" id="15_os0xn"]
+[ext_resource type="Texture2D" uid="uid://dm47adusti7p5" path="res://Asset/Phi/Phi trigger/phi_dipijak_07.png" id="16_nwc6o"]
+[ext_resource type="Texture2D" uid="uid://bfa6pj3rv7x61" path="res://Asset/Phi/Phi trigger/phi_dipijak_08.png" id="17_m3k7c"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jhu18"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_6efbp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_0n4o8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_oxlwr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_2vs5r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_vihrs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_4rlao")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_crl04")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_ydgyl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_6d8bb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_rpfne")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_1coik")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_os0xn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_nwc6o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_m3k7c")
+}],
+"loop": 0,
+"name": &"Trigger",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_phi"]
+size = Vector2(124, 12)
+
+[node name="PhiTrampoline" type="StaticBody2D" unique_id=1875602303]
+position = Vector2(85, 36)
+script = ExtResource("1_script")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1161403199]
+position = Vector2(815, 331)
+sprite_frames = SubResource("SpriteFrames_jhu18")
+animation = &"Idle"
+autoplay = "Idle"
+frame = 7
+frame_progress = 1.0
+speed_scale = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=568608255]
+position = Vector2(815, 303)
+shape = SubResource("RectangleShape2D_phi")

@@ -1,0 +1,114 @@
+[gd_scene load_steps=24 format=3]
+
+[ext_resource type="Texture2D" path="res://Asset/Karakter/Idle 01.png" id="1_idle01"]
+[ext_resource type="Texture2D" path="res://Asset/Karakter/Idle 02.png" id="2_idle02"]
+[ext_resource type="Texture2D" path="res://Asset/Karakter/Idle 03.png" id="3_idle03"]
+[ext_resource type="Texture2D" path="res://Asset/Karakter/Idle 04.png" id="4_idle04"]
+[ext_resource type="Texture2D" path="res://Asset/Karakter/Idle 05.png" id="5_idle05"]
+[ext_resource type="Texture2D" path="res://Asset/Karakter/Idle 06.png" id="6_idle06"]
+[ext_resource type="Texture2D" path="res://Asset/Karakter/Jump 01.png" id="7_jump01"]
+[ext_resource type="Texture2D" path="res://Asset/Karakter/Jump 02.png" id="8_jump02"]
+[ext_resource type="Texture2D" path="res://Asset/Karakter/Jump 03.png" id="9_jump03"]
+[ext_resource type="Texture2D" path="res://Asset/Karakter/Jump 04.png" id="10_jump04"]
+[ext_resource type="Texture2D" path="res://Asset/Karakter/Jump 05.png" id="11_jump05"]
+[ext_resource type="Texture2D" path="res://Asset/Karakter/Jump 06.png" id="12_jump06"]
+[ext_resource type="Texture2D" path="res://Asset/Karakter/Jump 07.png" id="13_jump07"]
+[ext_resource type="Texture2D" path="res://Asset/Karakter/Jump 08.png" id="14_jump08"]
+[ext_resource type="Texture2D" path="res://Asset/Karakter/Death 01.png" id="15_death01"]
+[ext_resource type="Texture2D" path="res://Asset/Karakter/Death 02.png" id="16_death02"]
+[ext_resource type="Texture2D" path="res://Asset/Karakter/Death 03.png" id="17_death03"]
+[ext_resource type="Texture2D" path="res://Asset/Karakter/Death 04.png" id="18_death04"]
+[ext_resource type="Texture2D" path="res://Asset/Karakter/Death 05.png" id="19_death05"]
+[ext_resource type="Texture2D" path="res://Asset/Karakter/Death 06.png" id="20_death06"]
+[ext_resource type="Texture2D" path="res://Asset/Karakter/Death 07.png" id="21_death07"]
+[ext_resource type="Texture2D" path="res://Asset/Karakter/Death 08.png" id="22_death08"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_character"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_idle01")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_idle02")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_idle03")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_idle04")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_idle05")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_idle06")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_jump01")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_jump02")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_jump03")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_jump04")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_jump05")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_jump06")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_jump07")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_jump08")
+}],
+"loop": true,
+"name": &"Jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_death01")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_death02")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_death03")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_death04")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_death05")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_death06")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_death07")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_death08")
+}],
+"loop": false,
+"name": &"Death",
+"speed": 10.0
+}]
+
+[node name="Character" type="AnimatedSprite2D"]
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_character")
+animation = &"Idle"
+autoplay = "Idle"
