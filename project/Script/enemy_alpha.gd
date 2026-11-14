@@ -9,6 +9,7 @@ extends CharacterBody2D
 @onready var enemy_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var enemy_collision: CollisionShape2D = $CollisionShape2D
 
+var start_position: Vector2
 var start_x: float
 var direction: int = -1
 var dead: bool = false
@@ -17,7 +18,9 @@ var death_animation: StringName
 
 
 func _ready() -> void:
-	start_x = global_position.x
+	add_to_group("reset_on_player_respawn")
+	start_position = global_position
+	start_x = start_position.x
 	idle_animation = _find_animation(["Idle", "idle", "default", "Ngesot"])
 	death_animation = _find_animation(["Death", "death", "Mati", "mati"])
 
@@ -78,7 +81,7 @@ func _die() -> void:
 	enemy_collision.set_deferred("disabled", true)
 
 	if death_animation == &"":
-		queue_free()
+		visible = false
 		return
 
 	enemy_sprite.play(death_animation)
@@ -93,4 +96,16 @@ func _find_animation(animation_names: Array[String]) -> StringName:
 
 func _on_animation_finished() -> void:
 	if dead and enemy_sprite.animation == death_animation:
-		queue_free()
+		visible = false
+
+
+func reset_after_player_respawn() -> void:
+	global_position = start_position
+	velocity = Vector2.ZERO
+	direction = -1
+	dead = false
+	visible = true
+	enemy_sprite.flip_h = false
+	enemy_collision.set_deferred("disabled", false)
+	if idle_animation != &"":
+		enemy_sprite.play(idle_animation)

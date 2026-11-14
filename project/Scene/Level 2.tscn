@@ -4,31 +4,56 @@
 [ext_resource type="Texture2D" uid="uid://bgxh4qb4ednep" path="res://Asset/Level Asset/Minus 1.png" id="2_jsor3"]
 [ext_resource type="PackedScene" uid="uid://b41rsj5oo7gl0" path="res://Script/disappearing_platform.tscn" id="3_736eb"]
 [ext_resource type="Script" uid="uid://br1tnc2bs6bg" path="res://Script/disappearing_platform.gd" id="4_lqgqx"]
+[ext_resource type="Texture2D" uid="uid://c5bpclebix42g" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_01.png" id="5_46pio"]
 [ext_resource type="Script" uid="uid://bcqoor55djj27" path="res://Script/moving_platform.gd" id="5_dhe6k"]
+[ext_resource type="Texture2D" uid="uid://c6imod2uumprg" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_02.png" id="6_2ih12"]
 [ext_resource type="Script" uid="uid://dncnwl7xxqf5c" path="res://Script/rotating_platform.gd" id="6_bro4a"]
 [ext_resource type="Texture2D" uid="uid://c4pkrm7qmgb0e" path="res://Asset/Level Asset/Segitiga.png" id="7_egufk"]
+[ext_resource type="Texture2D" uid="uid://bvk1l1b2uuvhh" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_03.png" id="7_snd4v"]
+[ext_resource type="Texture2D" uid="uid://bv4wrim446q8r" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_04.png" id="8_2kn7l"]
 [ext_resource type="Texture2D" uid="uid://dkqbkf52xspyc" path="res://Asset/Level Asset/Setengah persegi.png" id="8_g1hfi"]
 [ext_resource type="Script" uid="uid://bn2hncwpq7u4a" path="res://Script/player.gd" id="9_i7mqb"]
+[ext_resource type="Texture2D" uid="uid://c5g68y0w6nhfd" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_05.png" id="9_n6l5j"]
+[ext_resource type="Texture2D" uid="uid://14jwfj5haswu" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_06.png" id="10_iubqp"]
 [ext_resource type="Texture2D" uid="uid://commadkrs8jwr" path="res://Asset/Karakter/Death 01.png" id="10_wg0yy"]
 [ext_resource type="Texture2D" uid="uid://dud8n2n5silkc" path="res://Asset/Karakter/Death 02.png" id="11_45nqh"]
+[ext_resource type="Texture2D" uid="uid://c2vinid6eo4u7" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_07.png" id="11_uvett"]
+[ext_resource type="Texture2D" uid="uid://cj1528wclhpgp" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_08.png" id="12_vm7us"]
 [ext_resource type="Texture2D" uid="uid://bh48rjqw1jj8i" path="res://Asset/Karakter/Death 03.png" id="12_yfwjj"]
 [ext_resource type="Texture2D" uid="uid://cet0ptdg4q218" path="res://Asset/Karakter/Death 04.png" id="13_7jpxn"]
+[ext_resource type="Texture2D" uid="uid://iolit4oskp7i" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_09.png" id="13_afhft"]
 [ext_resource type="Texture2D" uid="uid://dtj6pj5h15sii" path="res://Asset/Karakter/Death 05.png" id="14_1iwu5"]
+[ext_resource type="Texture2D" uid="uid://q2k36rxo6ict" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_10.png" id="14_eq2x3"]
+[ext_resource type="Texture2D" uid="uid://d1ikb6uuepf4w" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_11.png" id="15_hg2ms"]
 [ext_resource type="Texture2D" uid="uid://c32a2qofrkr03" path="res://Asset/Karakter/Death 06.png" id="15_ornok"]
+[ext_resource type="Texture2D" uid="uid://c2e7fkisvedw" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_12.png" id="16_o715c"]
 [ext_resource type="Texture2D" uid="uid://730qligave44" path="res://Asset/Karakter/Death 07.png" id="16_xm2la"]
 [ext_resource type="Texture2D" uid="uid://6unnqmjgrarr" path="res://Asset/Karakter/Death 08.png" id="17_455ay"]
+[ext_resource type="Texture2D" uid="uid://2seiykuswvwo" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_01.png" id="17_iotxv"]
+[ext_resource type="Texture2D" uid="uid://b7f4suw6ljk5r" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_02.png" id="18_5c2vf"]
 [ext_resource type="Texture2D" uid="uid://b7kinlomqbvum" path="res://Asset/Karakter/Idle 01.png" id="18_7uk2r"]
 [ext_resource type="Texture2D" uid="uid://b7rqno3qm8hw" path="res://Asset/Karakter/Idle 02.png" id="19_2wvn0"]
+[ext_resource type="Texture2D" uid="uid://jaawv0f5oyqu" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_03.png" id="19_l7ep8"]
 [ext_resource type="Texture2D" uid="uid://bwi77clbvkwtf" path="res://Asset/Karakter/Idle 03.png" id="20_wmntp"]
+[ext_resource type="Texture2D" uid="uid://bg0u1dwqcqfu4" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_04.png" id="20_x4bea"]
 [ext_resource type="Texture2D" uid="uid://003oy5m2dap6" path="res://Asset/Karakter/Idle 04.png" id="21_2c1ix"]
+[ext_resource type="Texture2D" uid="uid://bio0ckxavugl8" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_05.png" id="21_2omcs"]
+[ext_resource type="Texture2D" uid="uid://cq4ki7u6iivco" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_06.png" id="22_oaemj"]
 [ext_resource type="Texture2D" uid="uid://cn358wulpi1jm" path="res://Asset/Karakter/Idle 05.png" id="22_y66sn"]
 [ext_resource type="Texture2D" uid="uid://bjqehvv42ief3" path="res://Asset/Karakter/Idle 06.png" id="23_ghh6p"]
+[ext_resource type="Texture2D" uid="uid://cw3qsyluiva1n" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_07.png" id="23_kywt2"]
+[ext_resource type="Texture2D" uid="uid://dnn6bnahve4ya" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_08.png" id="24_62ts6"]
 [ext_resource type="Texture2D" uid="uid://dq3hxk2gxeig3" path="res://Asset/Karakter/Jump 01.png" id="24_ukmf0"]
+[ext_resource type="Texture2D" uid="uid://b8stalknxevf1" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_09.png" id="25_6dqr7"]
 [ext_resource type="Texture2D" uid="uid://ckdhnj6m5brsq" path="res://Asset/Karakter/Jump 02.png" id="25_l0tmq"]
 [ext_resource type="Texture2D" uid="uid://de3wd2isdueqy" path="res://Asset/Karakter/Jump 03.png" id="26_46pio"]
+[ext_resource type="Texture2D" uid="uid://blns7ewj58yrc" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_10.png" id="26_qwv6h"]
 [ext_resource type="Texture2D" uid="uid://cvffenl2cvbay" path="res://Asset/Karakter/Jump 04.png" id="27_2ih12"]
+[ext_resource type="Texture2D" uid="uid://c8rbkafjtdyo7" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_11.png" id="27_qq6o0"]
+[ext_resource type="Texture2D" uid="uid://c86nabvb4ke7y" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_12.png" id="28_p1oih"]
 [ext_resource type="Texture2D" uid="uid://cxau6omhv04ij" path="res://Asset/Karakter/Jump 05.png" id="28_snd4v"]
 [ext_resource type="Texture2D" uid="uid://ncl5xtaoq7qs" path="res://Asset/Karakter/Jump 06.png" id="29_2kn7l"]
+[ext_resource type="Script" uid="uid://c35vccf1k8yhe" path="res://Script/checkpoint.gd" id="29_61fk6"]
 [ext_resource type="Texture2D" uid="uid://d2fbciaoysx85" path="res://Asset/Karakter/Jump 07.png" id="30_n6l5j"]
 [ext_resource type="Texture2D" uid="uid://m7hd63uap7o" path="res://Asset/Karakter/Jump 08.png" id="31_iubqp"]
 [ext_resource type="Texture2D" uid="uid://b22irch6eh3od" path="res://Asset/Level Asset/UFO Omega.png" id="32_uvett"]
@@ -85,6 +110,94 @@ size = Vector2(3724.9863, 624.9983)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r6a0q"]
 size = Vector2(150, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eakp4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_46pio")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_2ih12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_snd4v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_2kn7l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_n6l5j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_iubqp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_uvett")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_vm7us")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_afhft")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_eq2x3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_hg2ms")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_o715c")
+}],
+"loop": 1,
+"name": &"Sebelum",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_iotxv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_5c2vf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_l7ep8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_x4bea")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_2omcs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_oaemj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_kywt2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_62ts6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_6dqr7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_qwv6h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_qq6o0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_p1oih")
+}],
+"loop": 1,
+"name": &"Sesudah",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8yueh"]
+size = Vector2(380, 480)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ucjqn"]
 size = Vector2(149, 49)
@@ -646,6 +759,22 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Disappering Platform/Trigger" unique_id=42922746]
 shape = SubResource("RectangleShape2D_r6a0q")
+
+[node name="Animate Check Point" type="AnimatedSprite2D" parent="Disappering Platform" unique_id=860537245]
+z_index = -1
+position = Vector2(1044, -146.00003)
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_eakp4")
+animation = &"Sebelum"
+autoplay = "Sebelum"
+script = ExtResource("29_61fk6")
+
+[node name="CheckpointArea" type="Area2D" parent="Disappering Platform/Animate Check Point" unique_id=2107879036]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Disappering Platform/Animate Check Point/CheckpointArea" unique_id=1752333781]
+position = Vector2(0, 44)
+shape = SubResource("RectangleShape2D_8yueh")
 
 [node name="MovingPlatform" type="AnimatableBody2D" parent="." unique_id=2122008969]
 position = Vector2(3060, 354)

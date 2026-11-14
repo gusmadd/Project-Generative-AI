@@ -52,6 +52,31 @@
 [ext_resource type="Texture2D" uid="uid://d0xcrdyd2es7p" path="res://Asset/Portal/Portal Theta 23.png" id="50_08gsb"]
 [ext_resource type="Texture2D" uid="uid://dhx7wvpa8sgop" path="res://Asset/Portal/Portal Theta 24.png" id="51_on5w5"]
 [ext_resource type="Script" uid="uid://cagond822j1c" path="res://Script/level_portal.gd" id="52_level_portal"]
+[ext_resource type="Texture2D" uid="uid://c5bpclebix42g" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_01.png" id="53_jbaot"]
+[ext_resource type="Texture2D" uid="uid://c6imod2uumprg" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_02.png" id="54_218vy"]
+[ext_resource type="Texture2D" uid="uid://bvk1l1b2uuvhh" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_03.png" id="55_0kbc0"]
+[ext_resource type="Texture2D" uid="uid://bv4wrim446q8r" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_04.png" id="56_q1hu8"]
+[ext_resource type="Texture2D" uid="uid://c5g68y0w6nhfd" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_05.png" id="57_eqojw"]
+[ext_resource type="Texture2D" uid="uid://14jwfj5haswu" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_06.png" id="58_tijcr"]
+[ext_resource type="Texture2D" uid="uid://c2vinid6eo4u7" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_07.png" id="59_s7phi"]
+[ext_resource type="Texture2D" uid="uid://cj1528wclhpgp" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_08.png" id="60_boio2"]
+[ext_resource type="Texture2D" uid="uid://iolit4oskp7i" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_09.png" id="61_t8020"]
+[ext_resource type="Texture2D" uid="uid://q2k36rxo6ict" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_10.png" id="62_ofiu1"]
+[ext_resource type="Texture2D" uid="uid://d1ikb6uuepf4w" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_11.png" id="63_yxbra"]
+[ext_resource type="Texture2D" uid="uid://c2e7fkisvedw" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_12.png" id="64_subgk"]
+[ext_resource type="Texture2D" uid="uid://2seiykuswvwo" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_01.png" id="65_03xre"]
+[ext_resource type="Texture2D" uid="uid://b7f4suw6ljk5r" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_02.png" id="66_qiwr2"]
+[ext_resource type="Texture2D" uid="uid://jaawv0f5oyqu" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_03.png" id="67_wr7g1"]
+[ext_resource type="Texture2D" uid="uid://bg0u1dwqcqfu4" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_04.png" id="68_4ds8r"]
+[ext_resource type="Texture2D" uid="uid://bio0ckxavugl8" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_05.png" id="69_ohlib"]
+[ext_resource type="Texture2D" uid="uid://cq4ki7u6iivco" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_06.png" id="70_cdlyd"]
+[ext_resource type="Texture2D" uid="uid://cw3qsyluiva1n" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_07.png" id="71_qlnbw"]
+[ext_resource type="Texture2D" uid="uid://dnn6bnahve4ya" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_08.png" id="72_nvlxd"]
+[ext_resource type="Texture2D" uid="uid://b8stalknxevf1" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_09.png" id="73_r67wf"]
+[ext_resource type="Texture2D" uid="uid://blns7ewj58yrc" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_10.png" id="74_n8axa"]
+[ext_resource type="Texture2D" uid="uid://c8rbkafjtdyo7" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_11.png" id="75_nwa74"]
+[ext_resource type="Texture2D" uid="uid://c86nabvb4ke7y" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_12.png" id="76_4886n"]
+[ext_resource type="Script" uid="uid://c35vccf1k8yhe" path="res://Script/checkpoint.gd" id="77_fsrw1"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_8d8pf"]
 points = PackedVector2Array(-75, 49, 662, 49, 662, 99, -75, 99)
@@ -254,6 +279,94 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8d8pf"]
 radius = 196.66602
 height = 600.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mtmpj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("53_jbaot")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_218vy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_0kbc0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_q1hu8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_eqojw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_tijcr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_s7phi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_boio2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("61_t8020")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_ofiu1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("63_yxbra")
+}, {
+"duration": 1.0,
+"texture": ExtResource("64_subgk")
+}],
+"loop": 1,
+"name": &"Sebelum",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("65_03xre")
+}, {
+"duration": 1.0,
+"texture": ExtResource("66_qiwr2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("67_wr7g1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("68_4ds8r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("69_ohlib")
+}, {
+"duration": 1.0,
+"texture": ExtResource("70_cdlyd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("71_qlnbw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("72_nvlxd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("73_r67wf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("74_n8axa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("75_nwa74")
+}, {
+"duration": 1.0,
+"texture": ExtResource("76_4886n")
+}],
+"loop": 1,
+"name": &"Sesudah",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u1bl0"]
+size = Vector2(380, 480)
 
 [node name="Level 1" type="Node2D" unique_id=586274874]
 
@@ -554,3 +667,19 @@ speed_scale = 2.0
 position = Vector2(-5, 1)
 scale = Vector2(0.3, 0.3)
 shape = SubResource("CapsuleShape2D_8d8pf")
+
+[node name="Animate Check Point" type="AnimatedSprite2D" parent="." unique_id=260801888]
+z_index = -1
+position = Vector2(1174, 238)
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_mtmpj")
+animation = &"Sebelum"
+autoplay = "Sebelum"
+script = ExtResource("77_fsrw1")
+
+[node name="CheckpointArea" type="Area2D" parent="Animate Check Point" unique_id=1174299300]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Animate Check Point/CheckpointArea" unique_id=263299178]
+position = Vector2(0, 44)
+shape = SubResource("RectangleShape2D_u1bl0")

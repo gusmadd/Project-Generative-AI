@@ -13,10 +13,13 @@ extends StaticBody2D
 
 var triggered: bool = false
 var warning_tween: Tween
+var vanish_tween: Tween
 var platform_sprite_scale: Vector2
+var reset_generation: int = 0
 
 
 func _ready() -> void:
+	add_to_group("reset_on_player_respawn")
 	platform_sprite_scale = platform_sprite.scale
 	trigger.body_entered.connect(_on_trigger_body_entered)
 	warning_tween = _create_flash_tween(idle_flash_duration)
@@ -33,7 +36,11 @@ func activate_from_player(body: Node2D) -> void:
 	triggered = true
 	warning_tween.kill()
 	warning_tween = _create_flash_tween(flash_duration)
-	_disappear_after_delay()
+	var generation := reset_generation
+	get_tree().create_timer(disappear_delay).timeout.connect(
+		_on_disappear_delay_timeout.bind(generation),
+		CONNECT_ONE_SHOT
+	)
 
 
 func _create_flash_tween(duration: float) -> Tween:
@@ -43,28 +50,55 @@ func _create_flash_tween(duration: float) -> Tween:
 	return flashing
 
 
-func _disappear_after_delay() -> void:
-	await get_tree().create_timer(disappear_delay).timeout
-	if not is_inside_tree():
+func _on_disappear_delay_timeout(generation: int) -> void:
+	if not _is_current_activation(generation):
 		return
 
 	platform_collision.set_deferred("disabled", true)
 	trigger.set_deferred("monitoring", false)
 	warning_tween.kill()
 
-	var vanish := create_tween().set_parallel(true)
-	vanish.tween_property(platform_sprite, "modulate:a", 0.0, fade_duration)
-	vanish.tween_property(
+	vanish_tween = create_tween().set_parallel(true)
+	vanish_tween.tween_property(platform_sprite, "modulate:a", 0.0, fade_duration)
+	vanish_tween.tween_property(
 		platform_sprite,
 		"scale:y",
 		platform_sprite.scale.y * 0.7,
 		fade_duration
 	)
-	await vanish.finished
+	vanish_tween.finished.connect(
+		_on_vanish_finished.bind(generation),
+		CONNECT_ONE_SHOT
+	)
 
-	await get_tree().create_timer(respawn_delay).timeout
-	if not is_inside_tree():
+
+func _on_vanish_finished(generation: int) -> void:
+	if not _is_current_activation(generation):
 		return
+
+	get_tree().create_timer(respawn_delay).timeout.connect(
+		_on_respawn_delay_timeout.bind(generation),
+		CONNECT_ONE_SHOT
+	)
+
+
+func _on_respawn_delay_timeout(generation: int) -> void:
+	if not _is_current_activation(generation):
+		return
+
+	_reset_platform()
+
+
+func reset_after_player_respawn() -> void:
+	_reset_platform()
+
+
+func _reset_platform() -> void:
+	reset_generation += 1
+	if warning_tween != null and warning_tween.is_running():
+		warning_tween.kill()
+	if vanish_tween != null and vanish_tween.is_running():
+		vanish_tween.kill()
 
 	platform_sprite.modulate.a = 1.0
 	platform_sprite.scale = platform_sprite_scale
@@ -72,3 +106,7 @@ func _disappear_after_delay() -> void:
 	trigger.set_deferred("monitoring", true)
 	triggered = false
 	warning_tween = _create_flash_tween(idle_flash_duration)
+
+
+func _is_current_activation(generation: int) -> bool:
+	return is_inside_tree() and triggered and generation == reset_generation

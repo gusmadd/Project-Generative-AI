@@ -153,6 +153,14 @@ func die() -> void:
 	character_sprite.play("Death")
 
 
+func activate_checkpoint(checkpoint_position: Vector2) -> bool:
+	if dead or spawn_intro_active:
+		return false
+
+	spawn_position = checkpoint_position
+	return true
+
+
 func bounce_from_phi(bounce_velocity: float) -> void:
 	if dead or spawn_intro_active:
 		return
@@ -183,3 +191,10 @@ func _on_animation_finished() -> void:
 	pending_direction = 0
 	dead = false
 	character_sprite.play("Idle")
+	_reset_level_objects_after_respawn()
+
+
+func _reset_level_objects_after_respawn() -> void:
+	for resettable in get_tree().get_nodes_in_group("reset_on_player_respawn"):
+		if resettable.has_method("reset_after_player_respawn"):
+			resettable.call("reset_after_player_respawn")
