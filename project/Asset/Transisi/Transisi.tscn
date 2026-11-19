@@ -1,0 +1,212 @@
+[gd_scene format=3 uid="uid://qu57vkhuajsp"]
+
+[ext_resource type="Texture2D" uid="uid://4cuw54bsikns" path="res://Asset/Transisi/Transisi 01 — BG kosong.png" id="1_aom48"]
+[ext_resource type="Texture2D" uid="uid://cr2aoihh7vca0" path="res://Asset/Transisi/Transisi 02 — BG kosong.png" id="2_r5nu7"]
+[ext_resource type="Texture2D" uid="uid://ceu6xr2ql7avf" path="res://Asset/Transisi/Transisi 03 — BG kosong.png" id="3_cdsm4"]
+[ext_resource type="Texture2D" uid="uid://f8unm3f7mhxr" path="res://Asset/Transisi/Transisi 04 — BG kosong.png" id="4_vb6xc"]
+[ext_resource type="Texture2D" uid="uid://s854cal43jtt" path="res://Asset/Transisi/Transisi 05 — Partikel masuk.png" id="5_3h85r"]
+[ext_resource type="Texture2D" uid="uid://cgyj87fs0iwnb" path="res://Asset/Transisi/Transisi 06 — Partikel masuk.png" id="6_yru08"]
+[ext_resource type="Texture2D" uid="uid://ctobgr8y685xo" path="res://Asset/Transisi/Transisi 07 — Partikel masuk.png" id="7_j8dem"]
+[ext_resource type="Texture2D" uid="uid://b6np4i8irg4qs" path="res://Asset/Transisi/Transisi 08 — Partikel masuk.png" id="8_hyuqd"]
+[ext_resource type="Texture2D" uid="uid://c63xke4b3q8m0" path="res://Asset/Transisi/Transisi 09 — Partikel masuk.png" id="9_ergpb"]
+[ext_resource type="Texture2D" uid="uid://bb84n3vik31a0" path="res://Asset/Transisi/Transisi 10 — Partikel masuk.png" id="10_k5wqs"]
+[ext_resource type="Texture2D" uid="uid://lk4hn87uh5g4" path="res://Asset/Transisi/Transisi 11 — Partikel masuk.png" id="11_h7xim"]
+[ext_resource type="Texture2D" uid="uid://fpn6dd5hk7ao" path="res://Asset/Transisi/Transisi 12 — Player terbang.png" id="12_pv64s"]
+[ext_resource type="Texture2D" uid="uid://cvf8hjawoipmu" path="res://Asset/Transisi/Transisi 13 — Player terbang.png" id="13_yb51k"]
+[ext_resource type="Texture2D" uid="uid://bof2y8bf1111u" path="res://Asset/Transisi/Transisi 14 — Player terbang.png" id="14_83tmg"]
+[ext_resource type="Texture2D" uid="uid://x5w3hgf8p6j8" path="res://Asset/Transisi/Transisi 15 — Player terbang.png" id="15_sndf7"]
+[ext_resource type="Texture2D" uid="uid://dgu2j10v8rfi0" path="res://Asset/Transisi/Transisi 16 — Player terbang.png" id="16_kkf76"]
+[ext_resource type="Texture2D" uid="uid://s4y5yhxann5r" path="res://Asset/Transisi/Transisi 17 — Player terbang.png" id="17_7yik6"]
+[ext_resource type="Texture2D" uid="uid://obv61ghtu8sl" path="res://Asset/Transisi/Transisi 18 — Player terbang.png" id="18_30wm2"]
+[ext_resource type="Texture2D" uid="uid://dws0ds6bytgvi" path="res://Asset/Transisi/Transisi 19 — Player terbang.png" id="19_bwn7b"]
+[ext_resource type="Texture2D" uid="uid://ch6srjq02c6ch" path="res://Asset/Transisi/Transisi 20 — Player terbang.png" id="20_5ygvj"]
+[ext_resource type="Texture2D" uid="uid://knkejjv2xp3f" path="res://Asset/Transisi/Transisi 21 — Player terbang.png" id="21_yckdd"]
+[ext_resource type="Texture2D" uid="uid://dh7ufldd4two7" path="res://Asset/Transisi/Transisi 22 — Player terbang.png" id="22_xb3vw"]
+[ext_resource type="Texture2D" uid="uid://cdmedqhaunsy3" path="res://Asset/Transisi/Transisi 23 — Player terbang.png" id="23_4xr18"]
+[ext_resource type="Texture2D" uid="uid://b4m8abc22wluh" path="res://Asset/Transisi/Transisi 24 — Player terbang.png" id="24_ily5t"]
+[ext_resource type="Texture2D" uid="uid://mxkaymw5j2ea" path="res://Asset/Transisi/Transisi 25 — Player terbang.png" id="25_5ewgs"]
+[ext_resource type="Texture2D" uid="uid://djyt2gn3ioxj5" path="res://Asset/Transisi/Transisi 26 — Player terbang.png" id="26_22wd0"]
+[ext_resource type="Texture2D" uid="uid://cojgwyj7p3wno" path="res://Asset/Transisi/Transisi 27 — Player terbang.png" id="27_3a2n8"]
+[ext_resource type="Texture2D" uid="uid://vm2gc1wb0l2h" path="res://Asset/Transisi/Transisi 28 — Player terbang.png" id="28_ghh2v"]
+[ext_resource type="Texture2D" uid="uid://c6i1om8s0tmt1" path="res://Asset/Transisi/Transisi 29 — Player terbang.png" id="29_ofiob"]
+[ext_resource type="Texture2D" uid="uid://b0tfwncgxht16" path="res://Asset/Transisi/Transisi 30 — Player terbang.png" id="30_xr80c"]
+[ext_resource type="Texture2D" uid="uid://d3v0phledky5b" path="res://Asset/Transisi/Transisi 31 — Player terbang.png" id="31_d5btq"]
+[ext_resource type="Texture2D" uid="uid://cqvxinp4rwov1" path="res://Asset/Transisi/Transisi 32 — Player terbang.png" id="32_0b02l"]
+[ext_resource type="Texture2D" uid="uid://cmh5gjgdgfh5i" path="res://Asset/Transisi/Transisi 33 — Player terbang.png" id="33_txhjw"]
+[ext_resource type="Texture2D" uid="uid://bwrv0srbafuxo" path="res://Asset/Transisi/Transisi 34 — Player terbang.png" id="34_hy6i5"]
+[ext_resource type="Texture2D" uid="uid://l3yhvjgq50pp" path="res://Asset/Transisi/Transisi 35 — Player terbang.png" id="35_rih6s"]
+[ext_resource type="Texture2D" uid="uid://gvsnbfjs3366" path="res://Asset/Transisi/Transisi 36 — Player terbang.png" id="36_3qeqw"]
+[ext_resource type="Texture2D" uid="uid://iitt1vmr057x" path="res://Asset/Transisi/Transisi 37 — Ekor partikel.png" id="37_7enw1"]
+[ext_resource type="Texture2D" uid="uid://cnwbteyghufhv" path="res://Asset/Transisi/Transisi 38 — Ekor partikel.png" id="38_p6k43"]
+[ext_resource type="Texture2D" uid="uid://d3nmj1vcmlurq" path="res://Asset/Transisi/Transisi 39 — Ekor partikel.png" id="39_a00n3"]
+[ext_resource type="Texture2D" uid="uid://cm0b74yp18h68" path="res://Asset/Transisi/Transisi 40 — Ekor partikel.png" id="40_tyjp0"]
+[ext_resource type="Texture2D" uid="uid://3w4bmd6ployu" path="res://Asset/Transisi/Transisi 41 — Ekor partikel.png" id="41_hcc2g"]
+[ext_resource type="Texture2D" uid="uid://epgqosrqh3ys" path="res://Asset/Transisi/Transisi 42 — Ekor partikel.png" id="42_atc80"]
+[ext_resource type="Texture2D" uid="uid://c8vr6sc1otpcu" path="res://Asset/Transisi/Transisi 43 — Ekor partikel.png" id="43_4ry6j"]
+[ext_resource type="Texture2D" uid="uid://cfvtmkq0dt4pf" path="res://Asset/Transisi/Transisi 44 — Ekor partikel.png" id="44_6r3jw"]
+[ext_resource type="Texture2D" uid="uid://slyoy8ac5j0v" path="res://Asset/Transisi/Transisi 45 — BG kosong.png" id="45_0rf10"]
+[ext_resource type="Texture2D" uid="uid://bxxwbji45xccc" path="res://Asset/Transisi/Transisi 46 — BG kosong.png" id="46_68n40"]
+[ext_resource type="Texture2D" uid="uid://ckj56lxl0p761" path="res://Asset/Transisi/Transisi 47 — BG kosong.png" id="47_tbc3j"]
+[ext_resource type="Texture2D" uid="uid://8lnviw8iwexq" path="res://Asset/Transisi/Transisi 48 — BG kosong.png" id="48_vjnlu"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8f85w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_aom48")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_r5nu7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_cdsm4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_vb6xc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3h85r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_yru08")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_j8dem")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_hyuqd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ergpb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_k5wqs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_h7xim")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_pv64s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_yb51k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_83tmg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_sndf7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_kkf76")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_7yik6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_30wm2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_bwn7b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_5ygvj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_yckdd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_xb3vw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_4xr18")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_ily5t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_5ewgs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_22wd0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_3a2n8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_ghh2v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_ofiob")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_xr80c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_d5btq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_0b02l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_txhjw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_hy6i5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_rih6s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_3qeqw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_7enw1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_p6k43")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_a00n3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_tyjp0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_hcc2g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_atc80")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_4ry6j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_6r3jw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_0rf10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_68n40")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_tbc3j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_vjnlu")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 24.0
+}]
+
+[node name="Node2D" type="Node2D" unique_id=79819862]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1928849518]
+position = Vector2(963.766, 532)
+scale = Vector2(0.9245122, 0.9245122)
+sprite_frames = SubResource("SpriteFrames_8f85w")
+autoplay = "default"
+frame = 47
+frame_progress = 1.0

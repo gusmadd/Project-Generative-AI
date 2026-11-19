@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ct65rc0gu4sgk"
+path="res://.godot/imported/BGM Main menu.mp3-291450b9ed5f09738b3f9802482bdba0.mp3str"
+
+[deps]
+
+source_file="res://Audio/BGM/BGM Main menu.mp3"
+dest_files=["res://.godot/imported/BGM Main menu.mp3-291450b9ed5f09738b3f9802482bdba0.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

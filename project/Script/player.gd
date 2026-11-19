@@ -5,6 +5,15 @@ extends CharacterBody2D
 @export var double_jump_velocity: float = -405.0
 @export var gravity: float = 1100.0
 @export var fall_death_y: float = 1000.0
+@export var slash_texture: Texture2D = preload("res://Asset/Karakter/Efek partikel slash lompat.png")
+@export var slash_offset_y: float = 28.0
+@export var slash_amount: int = 25
+@export var slash_lifetime: float = 0.4
+@export var slash_speed_min: float = 120.0
+@export var slash_speed_max: float = 230.0
+@export var slash_curl: float = 260.0
+@export var slash_scale_min: float = 0.01
+@export var slash_scale_max: float = 0.03
 
 @onready var character_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var ufo: Node = $"../UFO"
@@ -17,9 +26,11 @@ var spawn_intro_active: bool = true
 var spawn_fall_active: bool = false
 var character_scale: Vector2
 var character_position: Vector2
+var jump_slash_particles: CPUParticles2D
 
 
 func _ready() -> void:
+	_setup_jump_slash()
 	spawn_position = global_position
 	character_scale = character_sprite.scale
 	character_position = character_sprite.position
@@ -128,6 +139,50 @@ func _play_spawn_intro() -> void:
 	spawn_fall_active = false
 
 
+func _setup_jump_slash() -> void:
+	jump_slash_particles = CPUParticles2D.new()
+	jump_slash_particles.name = "JumpSlashParticles"
+	jump_slash_particles.texture = slash_texture
+	jump_slash_particles.position = Vector2(0.0, slash_offset_y)
+	jump_slash_particles.z_index = 2
+	jump_slash_particles.amount = slash_amount
+	jump_slash_particles.lifetime = slash_lifetime
+	jump_slash_particles.lifetime_randomness = 0.2
+	jump_slash_particles.one_shot = true
+	jump_slash_particles.emitting = false
+	jump_slash_particles.explosiveness = 0.7
+	jump_slash_particles.local_coords = false
+	jump_slash_particles.spread = 42.0
+	jump_slash_particles.gravity = Vector2(0.0, 320.0)
+	jump_slash_particles.initial_velocity_min = slash_speed_min
+	jump_slash_particles.initial_velocity_max = slash_speed_max
+	jump_slash_particles.scale_amount_min = slash_scale_min
+	jump_slash_particles.scale_amount_max = slash_scale_max
+	jump_slash_particles.angular_velocity_min = -90.0
+	jump_slash_particles.angular_velocity_max = 90.0
+	add_child(jump_slash_particles)
+
+
+func _emit_jump_slash(direction: int) -> void:
+	if jump_slash_particles == null:
+		return
+
+	var curl_sign := 1.0 if direction < 0 else -1.0
+	jump_slash_particles.direction = Vector2(-float(direction), 0.18).normalized()
+	jump_slash_particles.tangential_accel_min = slash_curl * 0.6 * curl_sign
+	jump_slash_particles.tangential_accel_max = slash_curl * 1.2 * curl_sign
+
+	if direction < 0:
+		jump_slash_particles.angle_min = -60.0
+		jump_slash_particles.angle_max = -20.0
+	else:
+		jump_slash_particles.angle_min = 120.0
+		jump_slash_particles.angle_max = 160.0
+
+	jump_slash_particles.position = Vector2(0.0, slash_offset_y)
+	jump_slash_particles.restart()
+
+
 func _jump(direction: int) -> void:
 	if is_on_floor():
 		jumps_used = 0
@@ -142,6 +197,7 @@ func _jump(direction: int) -> void:
 	velocity.y = jump_velocity if jumps_used == 1 else double_jump_velocity
 	character_sprite.flip_h = direction < 0
 	character_sprite.play("Jump")
+	_emit_jump_slash(direction)
 
 
 func die() -> void:
@@ -169,6 +225,7 @@ func bounce_from_phi(bounce_velocity: float) -> void:
 	jumps_used = 0
 	pending_direction = 0
 	character_sprite.play("Jump")
+	_emit_jump_slash(1 if velocity.x >= 0.0 else -1)
 
 
 func bounce_from_enemy(bounce_velocity: float) -> void:
@@ -179,6 +236,7 @@ func bounce_from_enemy(bounce_velocity: float) -> void:
 	jumps_used = 0
 	pending_direction = 0
 	character_sprite.play("Jump")
+	_emit_jump_slash(1 if velocity.x >= 0.0 else -1)
 
 
 func _on_animation_finished() -> void:

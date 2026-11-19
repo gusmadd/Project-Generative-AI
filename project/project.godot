@@ -11,13 +11,15 @@ config_version=5
 [application]
 
 config/name="Project Generative AI"
-run/main_scene="res://Scene/Level 1.tscn"
+run/main_scene="res://Scene/Main Menu.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 GameManager="*res://Script/game_manager.gd"
+SceneTransition="*res://Script/scene_transition.gd"
+AudioManager="*res://Script/audio_manager.gd"
 
 [display]
 

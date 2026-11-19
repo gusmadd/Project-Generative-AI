@@ -77,6 +77,7 @@
 [ext_resource type="Texture2D" uid="uid://c8rbkafjtdyo7" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_11.png" id="75_nwa74"]
 [ext_resource type="Texture2D" uid="uid://c86nabvb4ke7y" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_12.png" id="76_4886n"]
 [ext_resource type="Script" uid="uid://c35vccf1k8yhe" path="res://Script/checkpoint.gd" id="77_fsrw1"]
+[ext_resource type="Script" uid="uid://br1tnc2bs6bg" path="res://Script/disappearing_platform.gd" id="78_218vy"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_8d8pf"]
 points = PackedVector2Array(-75, 49, 662, 49, 662, 99, -75, 99)
@@ -104,6 +105,9 @@ size = Vector2(150, 96)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r6a0q"]
 size = Vector2(445, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eqojw"]
+size = Vector2(589, 50)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tc0eq"]
 size = Vector2(45, 33)
@@ -368,6 +372,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u1bl0"]
 size = Vector2(380, 480)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0kbc0"]
+size = Vector2(150, 50)
+
 [node name="Level 1" type="Node2D" unique_id=586274874]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=431097827]
@@ -468,6 +475,31 @@ scale = Vector2(0.45999935, 0.45999935)
 texture = ExtResource("1_wtcfe")
 
 [node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4" unique_id=2100670972]
+position = Vector2(534, 1611)
+scale = Vector2(0.45999935, 0.45999935)
+texture = ExtResource("1_wtcfe")
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground" unique_id=945000164]
+position = Vector2(3750, -185)
+motion_scale = Vector2(0.5, 0.5)
+motion_offset = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5" unique_id=660093053]
+position = Vector2(533.9591, 351.2795)
+scale = Vector2(0.45999935, 0.45999935)
+texture = ExtResource("1_wtcfe")
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5" unique_id=992951946]
+position = Vector2(534, -353.00003)
+scale = Vector2(0.45999935, 0.45999935)
+texture = ExtResource("1_wtcfe")
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5" unique_id=948783159]
+position = Vector2(533.9591, 913.27954)
+scale = Vector2(0.45999935, 0.45999935)
+texture = ExtResource("1_wtcfe")
+
+[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5" unique_id=377499092]
 position = Vector2(534, 1611)
 scale = Vector2(0.45999935, 0.45999935)
 texture = ExtResource("1_wtcfe")
@@ -586,6 +618,26 @@ position = Vector2(2656.0002, 314)
 scale = Vector2(0.08000022, 0.08000022)
 texture = ExtResource("2_0e48y")
 
+[node name="Sprite2D23" type="Sprite2D" parent="Platform" unique_id=274564863]
+position = Vector2(3479, 310)
+scale = Vector2(0.08000022, 0.08000022)
+texture = ExtResource("2_0e48y")
+
+[node name="Sprite2D24" type="Sprite2D" parent="Platform" unique_id=988689223]
+position = Vector2(3627, 310)
+scale = Vector2(0.08000022, 0.08000022)
+texture = ExtResource("2_0e48y")
+
+[node name="Sprite2D25" type="Sprite2D" parent="Platform" unique_id=217801020]
+position = Vector2(3775, 310)
+scale = Vector2(0.08000022, 0.08000022)
+texture = ExtResource("2_0e48y")
+
+[node name="Sprite2D26" type="Sprite2D" parent="Platform" unique_id=594717444]
+position = Vector2(3923, 310)
+scale = Vector2(0.08000022, 0.08000022)
+texture = ExtResource("2_0e48y")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platform" unique_id=1486265741]
 position = Vector2(21, 370)
 shape = SubResource("ConvexPolygonShape2D_8d8pf")
@@ -622,6 +674,10 @@ shape = SubResource("RectangleShape2D_ucjqn")
 position = Vector2(2508.5, 314)
 shape = SubResource("RectangleShape2D_r6a0q")
 
+[node name="CollisionShape2D10" type="CollisionShape2D" parent="Platform" unique_id=1416458025]
+position = Vector2(3701.5, 310)
+shape = SubResource("RectangleShape2D_eqojw")
+
 [node name="Player" type="CharacterBody2D" parent="." unique_id=2137602410]
 position = Vector2(152, 230)
 script = ExtResource("25_player")
@@ -650,9 +706,11 @@ position = Vector2(119.99999, 0)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("26_ufo")
 script = ExtResource("27_ufo_animation")
+arrival_duration = 2.0
+departure_duration = 2.0
 
 [node name="Portal" type="Area2D" parent="." unique_id=1038803410]
-position = Vector2(2714, 194)
+position = Vector2(4079, 221)
 script = ExtResource("52_level_portal")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Portal" unique_id=395876777]
@@ -683,3 +741,28 @@ collision_layer = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Animate Check Point/CheckpointArea" unique_id=263299178]
 position = Vector2(0, 44)
 shape = SubResource("RectangleShape2D_u1bl0")
+
+[node name="Disappering Platform" type="StaticBody2D" parent="." unique_id=911656773]
+position = Vector2(3068, 309)
+script = ExtResource("78_218vy")
+disappear_delay = 0.6
+flash_opacity = 0.2
+idle_flash_duration = 0.7
+flash_duration = 0.1
+fade_duration = 0.1
+respawn_delay = 4.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Disappering Platform" unique_id=1828862520]
+position = Vector2(-3.8146973e-06, 9.536743e-07)
+scale = Vector2(0.08000022, 0.08000022)
+texture = ExtResource("2_0e48y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Disappering Platform" unique_id=1608577536]
+shape = SubResource("RectangleShape2D_0kbc0")
+
+[node name="Trigger" type="Area2D" parent="Disappering Platform" unique_id=521668803]
+light_mask = 0
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Disappering Platform/Trigger" unique_id=508171449]
+shape = SubResource("RectangleShape2D_0kbc0")

@@ -760,19 +760,19 @@ collision_layer = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Disappering Platform/Trigger" unique_id=42922746]
 shape = SubResource("RectangleShape2D_r6a0q")
 
-[node name="Animate Check Point" type="AnimatedSprite2D" parent="Disappering Platform" unique_id=860537245]
+[node name="Animate Check Point" type="AnimatedSprite2D" parent="." unique_id=860537245]
 z_index = -1
-position = Vector2(1044, -146.00003)
+position = Vector2(2599, 314.99997)
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_eakp4")
 animation = &"Sebelum"
 autoplay = "Sebelum"
 script = ExtResource("29_61fk6")
 
-[node name="CheckpointArea" type="Area2D" parent="Disappering Platform/Animate Check Point" unique_id=2107879036]
+[node name="CheckpointArea" type="Area2D" parent="Animate Check Point" unique_id=2107879036]
 collision_layer = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Disappering Platform/Animate Check Point/CheckpointArea" unique_id=1752333781]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Animate Check Point/CheckpointArea" unique_id=1752333781]
 position = Vector2(0, 44)
 shape = SubResource("RectangleShape2D_8yueh")
 

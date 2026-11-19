@@ -139,8 +139,8 @@ points = PackedVector2Array(-27.5, -212.49994, 30, -212.49994, 250, 182.5, 222.5
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_qdub4"]
 points = PackedVector2Array(-317.5, -242.49994, -77.5, -242.49994, -77.5, -207.49994, -280, -207.49994, -280, 207.5, -77.5, 207.5, -77.5, 240, -317.5, 240)
 
-[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_difsw"]
-points = PackedVector2Array(-29, -12, -1, -28, 27, -12, 49, -32, 60, -22, 36, 5, 50, 22, 60, 16, 61, 23, 48, 36, 26, 23, 5, 36, -12, 36, -29, 25, -34, 6)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bwfgv"]
+size = Vector2(93, 61)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8f85w"]
 animations = [{
@@ -190,6 +190,12 @@ animations = [{
 "name": &"default",
 "speed": 10.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wgm6h"]
+size = Vector2(97, 65)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3xies"]
+size = Vector2(90, 65)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_sxg1m"]
 animations = [{
@@ -1126,8 +1132,8 @@ left_distance = 170.0
 right_distance = 170.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyAlpha" unique_id=118456422]
-position = Vector2(-14, 9)
-shape = SubResource("ConvexPolygonShape2D_difsw")
+position = Vector2(1, 11)
+shape = SubResource("RectangleShape2D_bwfgv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="EnemyAlpha" unique_id=1209180698]
 scale = Vector2(0.5, 0.5)
@@ -1140,8 +1146,8 @@ left_distance = 180.0
 right_distance = 180.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyAlpha2" unique_id=1700984026]
-position = Vector2(-14, 9)
-shape = SubResource("ConvexPolygonShape2D_difsw")
+position = Vector2(-0.5, 11.5)
+shape = SubResource("RectangleShape2D_wgm6h")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="EnemyAlpha2" unique_id=1792709630]
 scale = Vector2(0.5, 0.5)
@@ -1154,8 +1160,8 @@ left_distance = 180.0
 right_distance = 180.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyAlpha3" unique_id=1997045243]
-position = Vector2(-14, 9)
-shape = SubResource("ConvexPolygonShape2D_difsw")
+position = Vector2(-1, 12.5)
+shape = SubResource("RectangleShape2D_3xies")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="EnemyAlpha3" unique_id=1065141611]
 scale = Vector2(0.5, 0.5)
