@@ -92,6 +92,9 @@ func _ready() -> void:
 		var node: Control = round_nodes[number]
 		node.visible = number == current_round
 	_initialize_settings()
+	if GameManager.open_levels_panel_on_menu:
+		GameManager.open_levels_panel_on_menu = false
+		call_deferred("_show_levels_panel_from_menu")
 
 
 func _connect_animated_button(button: TextureButton) -> void:
@@ -110,6 +113,7 @@ func _on_button_mouse_entered(button: TextureButton) -> void:
 	hovered_buttons[button] = true
 	if not button.disabled or button == next_button or button == back_button:
 		_animate_button(button, 1.2, 0.2)
+		AudioManager.play_sfx("button_hover")
 
 
 func _on_button_mouse_exited(button: TextureButton) -> void:
@@ -134,6 +138,7 @@ func _animate_button(button: TextureButton, target_scale: float, duration: float
 
 
 func _play_click_animation(button: TextureButton) -> void:
+	AudioManager.play_sfx("button_click")
 	var animation := _animate_button(button, 0.88, 0.06)
 	animation.tween_property(button, "scale", Vector2.ONE * 1.14, 0.09)
 	animation.tween_property(
@@ -152,6 +157,11 @@ func _on_play_pressed() -> void:
 
 func _on_levels_pressed() -> void:
 	await _play_click_animation(levels_button)
+	_show_levels_panel_from_menu()
+
+
+func _show_levels_panel_from_menu() -> void:
+	AudioManager.play_sfx("ui_open")
 	_apply_round_state(current_round)
 	menu_buttons.visible = false
 	levels_panel.visible = true
@@ -174,6 +184,7 @@ func _on_settings_pressed() -> void:
 
 
 func _open_settings() -> void:
+	AudioManager.play_sfx("ui_open")
 	menu_buttons.visible = false
 	settings_panel.visible = true
 	settings_panel.pivot_offset = settings_panel.size / 2.0

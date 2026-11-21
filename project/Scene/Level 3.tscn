@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://i514fdhxm2qa"]
 
+[ext_resource type="PackedScene" path="res://Script/pause.tscn" id="99_pause"]
+
 [ext_resource type="Texture2D" uid="uid://bp021jdeyxktc" path="res://Asset/Level Asset/BackGround.jpg" id="1_j665s"]
 [ext_resource type="Texture2D" uid="uid://bgxh4qb4ednep" path="res://Asset/Level Asset/Minus 1.png" id="2_qcrm6"]
 [ext_resource type="PackedScene" uid="uid://b41rsj5oo7gl0" path="res://Script/disappearing_platform.tscn" id="3_ndnxu"]
@@ -947,3 +949,9 @@ collision_layer = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Animate Check Point2/CheckpointArea" unique_id=1911742703]
 position = Vector2(0, 44)
 shape = SubResource("RectangleShape2D_quobq")
+
+[node name="Pause Layer" type="CanvasLayer" parent="."]
+layer = 90
+process_mode = 3
+
+[node name="Pause" parent="Pause Layer" instance=ExtResource("99_pause")]

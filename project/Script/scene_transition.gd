@@ -16,6 +16,7 @@ func change_scene(scene_path: String) -> bool:
 		push_error("Cannot transition to missing scene '%s'." % scene_path)
 		return false
 
+	AudioManager.play_sfx("transition")
 	AudioManager.fade_out_and_stop()
 	transitioning = true
 	call_deferred("_run_transition", scene_path)

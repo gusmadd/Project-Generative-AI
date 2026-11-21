@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cqwa3n54vil2u"
+path="res://.godot/imported/SFX Death Terkena Pisau.mp3-1ad574574a6268bb89814b55e8730fac.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/SFX Death Terkena Pisau.mp3"
+dest_files=["res://.godot/imported/SFX Death Terkena Pisau.mp3-1ad574574a6268bb89814b55e8730fac.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

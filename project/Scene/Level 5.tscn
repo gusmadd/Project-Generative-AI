@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://dspkun6n1cfak"]
 
+[ext_resource type="PackedScene" path="res://Script/pause.tscn" id="99_pause"]
+
 [ext_resource type="Texture2D" uid="uid://bp021jdeyxktc" path="res://Asset/Level Asset/BackGround.jpg" id="1_gbpm5"]
 [ext_resource type="Texture2D" uid="uid://bgxh4qb4ednep" path="res://Asset/Level Asset/Minus 1.png" id="2_a2e28"]
 [ext_resource type="Script" uid="uid://br1tnc2bs6bg" path="res://Script/disappearing_platform.gd" id="3_ap8xt"]
@@ -1440,3 +1442,9 @@ speed_scale = 2.0
 position = Vector2(-5, 1)
 scale = Vector2(0.3, 0.3)
 shape = SubResource("CapsuleShape2D_3atcg")
+
+[node name="Pause Layer" type="CanvasLayer" parent="."]
+layer = 90
+process_mode = 3
+
+[node name="Pause" parent="Pause Layer" instance=ExtResource("99_pause")]

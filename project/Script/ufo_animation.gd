@@ -13,6 +13,7 @@ func _ready() -> void:
 
 
 func play_arrival(spawn_position: Vector2) -> void:
+	AudioManager.play_sfx("ufo_arrival")
 	visible = true
 	modulate = Color.WHITE
 	global_position = spawn_position + Vector2(0, -travel_distance)

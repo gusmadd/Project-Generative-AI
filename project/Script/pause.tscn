@@ -1,0 +1,347 @@
+[gd_scene format=3 uid="uid://fb02dujtj1to"]
+
+[ext_resource type="Texture2D" uid="uid://c0f11kmwrcmx" path="res://Asset/Menu/Settings/Panel Settings • Transparent exterior.png" id="1_81tce"]
+[ext_resource type="Texture2D" uid="uid://c4hvp0nkpth5t" path="res://Asset/Pause/Pause button.png" id="1_e601o"]
+[ext_resource type="Texture2D" uid="uid://biguj207gen5a" path="res://Asset/Menu/Settings/Text • SETTINGS.png" id="2_e601o"]
+[ext_resource type="Texture2D" uid="uid://6pqsf85kcw0d" path="res://Asset/Pause/Dark panel.png" id="2_v332r"]
+[ext_resource type="Texture2D" uid="uid://chpbynkfxu5xl" path="res://Asset/Pause/Neon square root border.png" id="3_c3crc"]
+[ext_resource type="Texture2D" uid="uid://dwgtfq0da86k4" path="res://Asset/Menu/Settings/Icon • Settings gear.png" id="3_cx6na"]
+[ext_resource type="Texture2D" uid="uid://d3ustxghi5qp0" path="res://Asset/Menu/Settings/Button • Reset progress.png" id="4_fl8dj"]
+[ext_resource type="Texture2D" uid="uid://dlr80ta5e77rw" path="res://Asset/Pause/PAUSED.png" id="4_tpsxu"]
+[ext_resource type="Texture2D" uid="uid://dcxmuunbrfp2d" path="res://Asset/Menu/Buttton levels/Button • Close.png" id="5_ct7gd"]
+[ext_resource type="Texture2D" uid="uid://bsnfg1x7s8yil" path="res://Asset/Pause/Resume button.png" id="5_h5rl4"]
+[ext_resource type="Texture2D" uid="uid://c6001m5tkf1tc" path="res://Asset/Pause/Restart button.png" id="6_h5rl4"]
+[ext_resource type="Texture2D" uid="uid://dp8yikxgt71w" path="res://Asset/Menu/Settings/Text • MUSIC.png" id="6_v332r"]
+[ext_resource type="Texture2D" uid="uid://dmfb0d6e6ny5r" path="res://Asset/Menu/Settings/MUSIC • Handle.png" id="7_c3crc"]
+[ext_resource type="Texture2D" uid="uid://dct8gdj85ra1h" path="res://Asset/Pause/Levels button.png" id="7_hn31e"]
+[ext_resource type="Texture2D" uid="uid://dfvh0liwfk7lf" path="res://Asset/Pause/Settings button.png" id="8_nlhpn"]
+[ext_resource type="Texture2D" uid="uid://btula47hpdww1" path="res://Asset/Menu/Settings/MUSIC • Track.png" id="8_tpsxu"]
+[ext_resource type="Texture2D" uid="uid://ct0emkdkd76sk" path="res://Asset/Menu/Settings/MUSIC • Fill.png" id="9_h5rl4"]
+[ext_resource type="Texture2D" uid="uid://dghnqmpajuq3o" path="res://Asset/Menu/Settings/Text • SFX.png" id="10_hn31e"]
+[ext_resource type="Script" uid="uid://cisbrlylachi7" path="res://Script/pause.gd" id="pause_script"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cx6na"]
+atlas = ExtResource("1_e601o")
+region = Rect2(0, 0, 96.1772, 96.1772)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fl8dj"]
+atlas = ExtResource("1_e601o")
+region = Rect2(1160.9211, 0.5239792, 95.80969, 95.809685)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v332r"]
+atlas = ExtResource("1_e601o")
+region = Rect2(579.75867, 0.49992633, 95.75452, 95.75452)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8f85w"]
+atlas = ExtResource("5_h5rl4")
+region = Rect2(0, 0, 144.59387, 144.59387)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8d8pf"]
+atlas = ExtResource("5_h5rl4")
+region = Rect2(580.39667, 0.17282104, 143.49426, 143.49426)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xnr1l"]
+atlas = ExtResource("5_h5rl4")
+region = Rect2(1159.2545, 0, 145.04895, 144.46706)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pej8m"]
+atlas = ExtResource("6_h5rl4")
+region = Rect2(0, 0, 500.46558, 92.31601)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hn31e"]
+atlas = ExtResource("6_h5rl4")
+region = Rect2(580.01337, 0, 499.72028, 91.99062)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nlhpn"]
+atlas = ExtResource("6_h5rl4")
+region = Rect2(1159.913, -0.00010681152, 500.3697, 92.13268)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ucjqn"]
+atlas = ExtResource("7_hn31e")
+region = Rect2(0, 0, 500.10815, 92.098854)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h5rl4"]
+atlas = ExtResource("7_hn31e")
+region = Rect2(580.0363, 0, 500.02924, 92.281204)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wl2m7"]
+atlas = ExtResource("7_hn31e")
+region = Rect2(1159.8242, 0, 500.17578, 92.31094)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r6a0q"]
+atlas = ExtResource("8_nlhpn")
+region = Rect2(0, 0, 500.15182, 92.21063)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n0opg"]
+atlas = ExtResource("8_nlhpn")
+region = Rect2(579.92004, 0, 500.17883, 92.03965)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uca2n"]
+atlas = ExtResource("8_nlhpn")
+region = Rect2(1160.0538, 0, 499.94617, 92.06994)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nlhpn"]
+texture = ExtResource("8_tpsxu")
+texture_margin_top = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vowx0"]
+texture = ExtResource("9_h5rl4")
+texture_margin_left = 22.0
+expand_margin_left = 20.0
+expand_margin_top = 18.0
+expand_margin_right = 20.0
+expand_margin_bottom = 18.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wl2m7"]
+texture = ExtResource("9_h5rl4")
+texture_margin_left = 22.0
+expand_margin_left = 20.0
+expand_margin_top = 18.0
+expand_margin_right = 20.0
+expand_margin_bottom = 18.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n0opg"]
+texture = ExtResource("8_tpsxu")
+texture_margin_top = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uca2n"]
+texture = ExtResource("9_h5rl4")
+texture_margin_left = 22.0
+expand_margin_left = 20.0
+expand_margin_top = 18.0
+expand_margin_right = 20.0
+expand_margin_bottom = 18.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_khsnh"]
+texture = ExtResource("9_h5rl4")
+texture_margin_left = 22.0
+expand_margin_left = 20.0
+expand_margin_top = 18.0
+expand_margin_right = 20.0
+expand_margin_bottom = 18.0
+
+[node name="Pause" type="Control" unique_id=780998571]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("pause_script")
+
+[node name="TextureButton" type="TextureButton" parent="." unique_id=2141977455]
+layout_mode = 0
+offset_left = 1826.0
+offset_top = 21.0
+offset_right = 1893.0103
+offset_bottom = 86.0
+texture_normal = SubResource("AtlasTexture_cx6na")
+texture_pressed = SubResource("AtlasTexture_fl8dj")
+texture_hover = SubResource("AtlasTexture_v332r")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Pause Panel" type="Panel" parent="." unique_id=539701602]
+visible = false
+self_modulate = Color(0, 0, 0, 0.6)
+layout_mode = 0
+offset_right = 1948.0
+offset_bottom = 1092.0
+
+[node name="BG" type="TextureRect" parent="Pause Panel" unique_id=1070652788]
+layout_mode = 0
+offset_left = 537.0
+offset_top = 180.0
+offset_right = 1382.0
+offset_bottom = 919.0
+texture = ExtResource("2_v332r")
+
+[node name="Akar" type="TextureRect" parent="Pause Panel" unique_id=21173830]
+layout_mode = 0
+offset_left = 318.0
+offset_top = 151.0
+offset_right = 1376.0
+offset_bottom = 913.0
+texture = ExtResource("3_c3crc")
+
+[node name="Text" type="TextureRect" parent="Pause Panel" unique_id=1114209781]
+visible = false
+layout_mode = 0
+offset_left = 769.0
+offset_top = 280.0
+offset_right = 1284.0
+offset_bottom = 413.0
+texture = ExtResource("4_tpsxu")
+
+[node name="Resume Button" type="TextureButton" parent="Pause Panel" unique_id=525372464]
+visible = false
+layout_mode = 0
+offset_left = 434.0
+offset_top = 336.0
+offset_right = 578.0
+offset_bottom = 480.0
+texture_normal = SubResource("AtlasTexture_8f85w")
+texture_pressed = SubResource("AtlasTexture_8d8pf")
+texture_hover = SubResource("AtlasTexture_xnr1l")
+
+[node name="Restart Button" type="TextureButton" parent="Pause Panel" unique_id=1806545947]
+visible = false
+layout_mode = 0
+offset_left = 774.0
+offset_top = 448.0
+offset_right = 1274.0
+offset_bottom = 540.0
+texture_normal = SubResource("AtlasTexture_pej8m")
+texture_pressed = SubResource("AtlasTexture_hn31e")
+texture_hover = SubResource("AtlasTexture_nlhpn")
+
+[node name="Level Buttons" type="TextureButton" parent="Pause Panel" unique_id=47106382]
+visible = false
+layout_mode = 0
+offset_left = 774.0
+offset_top = 586.0
+offset_right = 1274.0
+offset_bottom = 678.0
+texture_normal = SubResource("AtlasTexture_ucjqn")
+texture_pressed = SubResource("AtlasTexture_h5rl4")
+texture_hover = SubResource("AtlasTexture_wl2m7")
+
+[node name="Settings Button" type="TextureButton" parent="Pause Panel" unique_id=1275651764]
+visible = false
+layout_mode = 0
+offset_left = 776.0
+offset_top = 724.0
+offset_right = 1276.0
+offset_bottom = 816.0
+texture_normal = SubResource("AtlasTexture_r6a0q")
+texture_pressed = SubResource("AtlasTexture_n0opg")
+texture_hover = SubResource("AtlasTexture_uca2n")
+
+[node name="Settings Panel" type="TextureRect" parent="." unique_id=1878576628]
+visible = false
+layout_mode = 0
+offset_left = 547.0
+offset_top = 118.0
+offset_right = 1336.0
+offset_bottom = 978.0681
+texture = ExtResource("1_81tce")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="Settings Panel" unique_id=793950965]
+layout_mode = 0
+offset_left = 131.0
+offset_top = 70.0
+offset_right = 662.01715
+offset_bottom = 191.0
+texture = ExtResource("2_e601o")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect2" type="TextureRect" parent="Settings Panel" unique_id=932618506]
+layout_mode = 0
+offset_left = 584.0
+offset_top = 64.0
+offset_right = 741.9886
+offset_bottom = 100.0
+texture = ExtResource("3_cx6na")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Reset Progres Button" type="TextureButton" parent="Settings Panel" unique_id=2060343346]
+layout_mode = 0
+offset_left = 146.0
+offset_top = 579.0
+offset_right = 660.5897
+offset_bottom = 673.0
+texture_normal = ExtResource("4_fl8dj")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Close Button" type="TextureButton" parent="Settings Panel" unique_id=2097964066]
+layout_mode = 0
+offset_left = 243.0
+offset_top = 713.0
+offset_right = 558.9685
+offset_bottom = 809.0
+texture_normal = ExtResource("5_ct7gd")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Music Label" type="TextureRect" parent="Settings Panel" unique_id=184260197]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 227.0
+offset_right = 240.0
+offset_bottom = 265.0
+texture = ExtResource("6_v332r")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Music Slidder" type="HSlider" parent="Settings Panel" unique_id=702097321]
+layout_mode = 0
+offset_left = 83.0
+offset_top = 249.0
+offset_right = 896.0
+offset_bottom = 410.0
+scale = Vector2(0.75, 0.75)
+theme_override_constants/center_grabber = 2
+theme_override_constants/grabber_offset = 0
+theme_override_icons/grabber = ExtResource("7_c3crc")
+theme_override_icons/grabber_highlight = ExtResource("7_c3crc")
+theme_override_icons/grabber_disabled = ExtResource("7_c3crc")
+theme_override_styles/slider = SubResource("StyleBoxTexture_nlhpn")
+theme_override_styles/grabber_area = SubResource("StyleBoxTexture_vowx0")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_wl2m7")
+value = 80.0
+
+[node name="Music Value" type="Label" parent="Settings Panel/Music Slidder" unique_id=112720580]
+layout_mode = 0
+offset_left = 729.3334
+offset_top = 1.3333435
+offset_right = 809.3334
+offset_bottom = 53.333344
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "80%"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sfx Label" type="TextureRect" parent="Settings Panel" unique_id=454803128]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 386.0
+offset_right = 234.0
+offset_bottom = 432.0
+texture = ExtResource("10_hn31e")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SFX Slidder" type="HSlider" parent="Settings Panel" unique_id=1517383184]
+layout_mode = 1
+offset_left = 80.0
+offset_top = 420.0
+offset_right = 893.0
+offset_bottom = 581.0
+scale = Vector2(0.75, 0.75)
+theme_override_icons/grabber = ExtResource("7_c3crc")
+theme_override_icons/grabber_highlight = ExtResource("7_c3crc")
+theme_override_icons/grabber_disabled = ExtResource("7_c3crc")
+theme_override_styles/slider = SubResource("StyleBoxTexture_n0opg")
+theme_override_styles/grabber_area = SubResource("StyleBoxTexture_uca2n")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_khsnh")
+value = 50.0
+
+[node name="Sfx Value" type="Label" parent="Settings Panel/SFX Slidder" unique_id=1961757396]
+layout_mode = 0
+offset_left = 732.00006
+offset_top = 6.666649
+offset_right = 812.00006
+offset_bottom = 58.66665
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "50%"
+horizontal_alignment = 1
+vertical_alignment = 1

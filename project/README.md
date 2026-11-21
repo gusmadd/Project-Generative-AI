@@ -28,7 +28,7 @@ Game platformer 2D minimalis bergaya geometris. Pemain mengendalikan karakter **
 
 Loop aktual:
 
-1. **Spawn** — di awal level, UFO Omega turun, karakter Φ muncul dengan animasi *squash & stretch*, melayang, lalu UFO pergi. Selama intro ini input tidak diproses.
+1. **Spawn** — setelah transisi antar-scene selesai (tirai terbuka), UFO Ω baru muncul dan turun, karakter Φ lalu tampil dengan animasi *squash & stretch*, melayang, dan UFO pergi. UFO disembunyikan sampai saat itu, sehingga tidak terlihat saat layar masih tertutup. Selama intro ini input tidak diproses.
 2. **Navigasi** — setiap penekanan tombol arah sekaligus menggerakkan dan **melompat** (lihat §3). Tersedia **double jump**.
 3. **Checkpoint λ** — menyentuh checkpoint menyimpan posisi **pemain saat itu** sebagai titik respawn dan mengubah animasi `Sebelum` → `Sesudah` (sekali pakai per checkpoint).
 4. **Kematian & respawn** — jatuh di bawah `y = 1000` atau menyentuh hazard/musuh memicu animasi `Death`; setelah selesai, pemain kembali ke posisi spawn. Musuh dan platform yang hilang ikut direset lewat grup `reset_on_player_respawn`.
@@ -64,7 +64,7 @@ Parameter `player.gd` (default, tidak dioverride di scene level mana pun): `hori
 
 ## 4. Sistem & Skrip
 
-### 4.1 Daftar lengkap skrip di `Script/` (16 file `.gd`)
+### 4.1 Daftar lengkap skrip di `Script/` (17 file `.gd`)
 
 | File | Extends | Peran aktual |
 | :--- | :--- | :--- |
@@ -72,7 +72,8 @@ Parameter `player.gd` (default, tidak dioverride di scene level mana pun): `hori
 | `game_manager.gd` | `Node` (autoload `GameManager`) | Daftar 18 path level, unlock/complete, progres `user://progress.cfg`, reset progres, perpindahan level. |
 | `scene_transition.gd` | `Node` (autoload `SceneTransition`) | Tirai kiri/kanan + animasi `Asset/Transisi/Transisi.tscn` saat ganti scene; meminta fade-out BGM dan memulai BGM scene tujuan. |
 | `audio_manager.gd` | `Node` (autoload `AudioManager`) | BGM menu/gameplay, bus `Music`, loop, fade-in 0,9 dtk, fade-out 0,3 dtk + `stop()`, dan pengaturan volume tersimpan. |
-| `main_menu.gd` | `Control` | Tombol menu, animasi hover/klik, panel 3 round × 6 level (18 tombol), slide antar-round, tombol Next/Back, banner teks round, dan state tombol Lock/Unlock/Complete. |
+| `main_menu.gd` | `Control` | Tombol menu, animasi hover/klik, panel 3 round × 6 level (18 tombol), slide antar-round, tombol Next/Back, banner teks round, state tombol Lock/Unlock/Complete, dan membuka panel Level bila datang dari tombol Level pause. |
+| `pause.gd` | `Control` | Pause game, animasi panel dan tombol, Resume/Restart/Level/Settings, serta sinkronisasi slider volume. |
 | `checkpoint.gd` | `AnimatedSprite2D` | Area `CheckpointArea`; animasi `Sebelum`/`Sesudah`; simpan posisi pemain. |
 | `level_portal.gd` | `Area2D` | Selesaikan level, tarik pemain ke portal 1,5 dtk, lanjut ke level berikutnya. |
 | `phi_trampoline.gd` | `StaticBody2D` | Papan pantul berbentuk Φ; animasi `Idle`/`Trigger`; pantul ke atas. |
@@ -85,9 +86,9 @@ Parameter `player.gd` (default, tidak dioverride di scene level mana pun): `hori
 | `multi_rotating_saw.gd` | `Node2D` (`@tool`) | 2–3 mata gergaji × mengorbit; node blade dibuat saat runtime. |
 | `large_gear.gd` | `AnimatedSprite2D` | Gergaji besar bergerak horizontal dengan `HazardArea`; hanya dipakai Level 5. |
 
-### 4.2 Scene reusable di `Script/` (6 file `.tscn`)
+### 4.2 Scene reusable di `Script/` (7 file `.tscn`)
 
-`character_scene.tscn` (sprite Φ mandiri; **tidak pernah di-instance**), `disappearing_platform.tscn` (dipakai Level 2–5), `moving_platform.tscn` (**tidak pernah di-instance**; skripnya dipasang langsung di level), `multi_rotating_saw.tscn` (dipakai Level 3–5), `phi_trampoline.tscn` (dipakai Level 4–5), `rotating_saw.tscn` (dipakai Level 3–5).
+`character_scene.tscn` (sprite Φ mandiri; **tidak pernah di-instance**), `disappearing_platform.tscn` (dipakai Level 2–5), `moving_platform.tscn` (**tidak pernah di-instance**; skripnya dipasang langsung di level), `multi_rotating_saw.tscn` (dipakai Level 3–5), `phi_trampoline.tscn` (dipakai Level 4–5), `rotating_saw.tscn` (dipakai Level 3–5), `pause.tscn` (di-instance di keenam scene level).
 
 **Tidak ada** `rotating_platform.tscn` — skrip `rotating_platform.gd` dipasang langsung pada node di Level 2–5. Pemain juga selalu berupa node inline bernama `Player` di tiap level, bukan instance `character_scene.tscn`.
 
@@ -97,7 +98,7 @@ Parameter `player.gd` (default, tidak dioverride di scene level mana pun): `hori
 - Progres disimpan di `user://progress.cfg` lewat `ConfigFile` (`highest_unlocked_level`, `completed_levels`).
 - `SceneTransition.change_scene()` membuat `CanvasLayer` layer 100, dua `ColorRect` tirai warna `#030817` (0,3 dtk), ganti scene, lalu memutar animasi `Transisi.tscn` (48 frame: `BG kosong`, `Partikel masuk`, `Player terbang`, `Ekor partikel`) sebelum tirai dibuka.
 
-### 4.4 Sistem BGM (`AudioManager`)
+### 4.4 Sistem Audio (`AudioManager`)
 
 | File BGM | Digunakan di |
 | :--- | :--- |
@@ -111,7 +112,38 @@ Alur yang terpasang:
 - BGM dipilih otomatis dari scene aktif: menu → BGM menu, level → BGM gameplay. Membuka/menutup panel Settings atau Level Select **tidak** mengganti scene, sehingga BGM tidak restart.
 - Saat scene akan diganti (tombol PLAY, pilih level, portal finish, dll.), `SceneTransition.change_scene()` memanggil `AudioManager.fade_out_and_stop()`: volume turun ke −40 dB dalam 0,3 dtk lalu `stop()`. Selama transisi tidak ada BGM yang diputar.
 - Setelah scene tujuan dimuat dan tirai selesai dibuka, BGM scene tujuan baru mulai `play()` dengan fade-in 0,9 dtk dari −40 dB ke 0 dB (volume target berasal dari bus `Music`).
-- Nilai slider MUSIC dan SFX disimpan di `user://settings.cfg`. Belum ada file/SFX yang diputar; slider SFX hanya menyimpan nilai untuk kebutuhan berikutnya.
+- Nilai slider MUSIC dan SFX disimpan di `user://settings.cfg`. Keduanya kini benar-benar mengendalikan bus `Music` dan `SFX`.
+
+**SFX** — 16 file MP3 di `Audio/SFX/` dimuat sekali saat `AudioManager` siap dan diputar lewat kumpulan `AudioStreamPlayer` (12 player bergilir, bus `SFX`) agar beberapa suara bisa terdengar bersamaan:
+
+| Key | File | Pemicu |
+| :--- | :--- | :--- |
+| `breath_idle` | `Breath For Idle.mp3` | Player diam di lantai; mulai setelah 1 dtk, diulang dengan jeda 1 dtk setelah suara selesai |
+| `jump` / `double_jump` | `Jump.mp3` / `Double Jump.mp3` | Lompat pertama / lompat kedua di `player.gd` |
+| `landing` | `Landing.mp3` | Saat player menyentuh platform setelah melayang |
+| `button_click` / `button_hover` | `SFX Button Clicked.mp3` / `SFX Button Hover.mp3` | Klik dan hover tombol di menu maupun pause |
+| `checkpoint` | `SFX Check Point.mp3` | Checkpoint berhasil diaktifkan |
+| `death_fall` / `death_blade` / `death_enemy` | `SFX Death Jatuh.mp3` / `SFX Death Terkena Pisau.mp3` / `SFX Death Terkena Enemy.mp3` | `player.die(reason)` — jatuh, gergaji, atau musuh |
+| `portal` | `SFX Go Portal.mp3` | Player masuk portal finish |
+| `stomp` | `SFX Menginjak Enemy.mp3` | Player menginjak musuh dari atas |
+| `spawn` | `SFX Spawn Player.mp3` | Muncul dari UFO dan setelah respawn |
+| `ufo_arrival` | `SFX UFO Datang.mp3` | UFO mulai turun saat spawn player |
+| `transition` | `Transition SFX.mp3` | Transisi antar-scene dimulai (bersamaan dengan BGM fade-out) |
+| `ui_open` | `SFX UI Pop Open.mp3` | Panel Level/Settings di menu serta panel Pause/Settings di pause |
+
+`AudioManager` ber-`process_mode = ALWAYS`, sehingga SFX tombol tetap terdengar walaupun game sedang di-pause.
+
+### 4.5 Sistem Pause
+
+`Script/pause.tscn` + `Script/pause.gd` di-instance di **keenam scene level** di dalam node `"Pause Layer"` (`CanvasLayer`, `layer = 90`, `process_mode = ALWAYS`). `CanvasLayer` membuat UI pause tetap menempel pada tampilan kamera/ viewport dan tidak ikut bergeser saat `Camera2D` pemain bergerak atau zoom; layer 90 berada di bawah layer transisi (100). Instance `Pause` juga ber-`process_mode = ALWAYS` agar tetap merespons saat `get_tree().paused = true`.
+
+- Tombol pause (kanan atas) membesar saat hover dan pop saat diklik.
+- Saat diklik: game di-pause, lalu `Pause Panel` beranimasi — `self_modulate` 0 → `Color(0,0,0,0.6)` cepat; `BG` dan `Akar` jatuh dari atas bersamaan, pop, lalu mengecil dan turun sedikit; setelah itu `Text`, `Restart Button`, `Level Buttons`, `Settings Button`, dan `Resume Button` muncul pop satu per satu.
+- Semua tombol panel memiliki efek pop-up saat hover maupun klik.
+- **Resume**: panel `self_modulate` → 0 disertai pop, lalu panel disembunyikan dan game dilanjutkan.
+- **Restart**: transisi antar-scene lalu memuat ulang scene level yang sama dari awal.
+- **Level**: transisi ke `Main Menu.tscn` dengan panel Level terbuka (lewat `GameManager.open_levels_panel_on_menu`).
+- **Settings**: membuka panel Settings di dalam pause dengan perilaku sama seperti di menu (slider MUSIC/SFX, pop-up, Reset Progres). Bedanya, **Reset Progres** di pause mereset level lalu melakukan transisi ke Main Menu.
 
 ---
 
@@ -167,7 +199,7 @@ Fakta penting lainnya:
 
 ### 6.2 Level 1–6
 
-Keenam level ber-root `Node2D` **tanpa skrip**, dengan struktur berulang: `ParallaxBackground`, `Platform` (`StaticBody2D`), satu `Player` (`CharacterBody2D` + kamera `zoom 1.5`; `limit_left = -60` di Level 1, `-40` di Level 2–6), satu `UFO`, satu `Portal`, checkpoint, dan berbagai hazard/platform. Kamera **tanpa position smoothing**. `Level 6.tscn` memakai struktur dan jumlah entitas yang sama dengan Level 5.
+Keenam level ber-root `Node2D` **tanpa skrip**, dengan struktur berulang: `ParallaxBackground`, `Platform` (`StaticBody2D`), satu `Player` (`CharacterBody2D` + kamera `zoom 1.5`; `limit_left = -60` di Level 1, `-40` di Level 2–6), satu `UFO`, satu `Portal`, checkpoint, dan berbagai hazard/platform. Kamera **tanpa position smoothing**. Keenam level juga memuat instance `Script/pause.tscn` bernama `Pause`. `Level 6.tscn` memakai struktur dan jumlah entitas yang sama dengan Level 5.
 
 | Konten | L1 | L2 | L3 | L4 | L5 | L6 |
 | :--- | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -206,9 +238,15 @@ project/
 ├── .gitignore
 ├── .godot/
 ├── Audio/
-│   └── BGM/
-│       ├── BGM Main menu.mp3 (+ .import)
-│       └── BGM Gameplay.mp3 (+ .import)
+│   ├── BGM/
+│   │   ├── BGM Main menu.mp3 (+ .import)
+│   │   └── BGM Gameplay.mp3 (+ .import)
+│   └── SFX/                         (16 file .mp3 + .import: Breath For Idle, Jump,
+│                                    Double Jump, Landing, SFX Button Clicked/Hover,
+│                                    SFX Check Point, SFX Death Jatuh/Terkena Pisau/
+│                                    Terkena Enemy, SFX Go Portal, SFX Menginjak Enemy,
+│                                    SFX Spawn Player, SFX UFO Datang, Transition SFX,
+│                                    SFX UI Pop Open)
 ├── Asset/
 │   ├── Check Point/
 │   │   ├── check point sebelum/     (Checkpoint_Before_01..12.png + .import)
@@ -230,6 +268,8 @@ project/
 │   │   ├── Buttton levels/          (Panel, Text LEVELS, Close, Box Text, Kana, Kiri,
 │   │                                State=Lock/Unlock/Complete, Level=1..10.png + .import)
 │   │   └── Settings/                (panel, Contoh Layout Settings, teks, ikon, aset slider MUSIC/SFX + .import)
+│   ├── Pause/                       (Pause button, PAUSED, Dark panel, Neon square root border,
+│   │                                Resume/Restart/Levels/Settings button, White neon core + .import)
 │   ├── Phi/
 │   │   ├── Phi idle/                (phi_idle_01@2x .. phi_idle_08.png + .import)
 │   │   └── Phi trigger/             (phi_dipijak_01..08.png + .import)
@@ -267,6 +307,8 @@ project/
 │   ├── multi_rotating_saw.gd
 │   ├── multi_rotating_saw.gd.uid
 │   ├── multi_rotating_saw.tscn
+│   ├── pause.gd
+│   ├── pause.tscn
 │   ├── phi_trampoline.gd
 │   ├── phi_trampoline.gd.uid
 │   ├── phi_trampoline.tscn
@@ -292,9 +334,9 @@ project/
 
 ### Inventaris aset
 
-`Asset/` berisi **21 folder**, **519 file**: 258 `.png`, 1 `.jpg` (`BackGround.jpg`), 259 `.import`, dan 1 `.tscn` (`Transisi.tscn`).
+`Asset/` berisi **22 folder**, **519 file**: 258 `.png`, 1 `.jpg` (`BackGround.jpg`), 259 `.import`, dan 1 `.tscn` (`Transisi.tscn`). Dua file BGM `.mp3` berada di luar `Asset/`, yaitu di `Audio/BGM/`.
 
-Ada **2 file BGM MP3** di `Audio/BGM/` (menu dan gameplay). Belum ada file SFX; slider SFX di panel Settings baru hanya menyimpan nilai.
+Ada **2 file BGM MP3** di `Audio/BGM/` (menu dan gameplay) dan **16 file SFX MP3** di `Audio/SFX/`. Slider MUSIC dan SFX keduanya aktif mengendalikan bus masing-masing.
 
 ---
 
@@ -310,7 +352,7 @@ Fitur yang **tidak ada** di proyek dan karenanya dihapus dari dokumen ini:
 | Ω sebagai musuh terbang berbahaya | UFO hanya animasi kedatangan/keberangkatan saat spawn; tanpa Area2D bahaya. |
 | Musuh α memakai `RayCast2D` | Tidak ada `RayCast2D`; patroli memakai batas jarak + `is_on_wall()`. |
 | Kamera dengan *position smoothing* | `Camera2D` anak pemain, zoom 1.5, tanpa smoothing. |
-| BGM synthwave/lo-fi + SFX retro | Sudah ada 2 BGM MP3 dan `AudioManager` untuk menu/gameplay; SFX masih belum ada. |
+| BGM synthwave/lo-fi + SFX retro | Sudah ada 2 BGM MP3 dan 14 SFX MP3 yang diputar `AudioManager` melalui bus `Music` dan `SFX`. |
 | 5 level "dirancang", pengaturan (Settings) berfungsi | 6 level benar-benar ada, tetapi kini 18 dideklarasikan untuk 3 round; Settings kini berfungsi (slider MUSIC/SFX, reset progres); tidak ada layar ending. |
 | Latar parallax berisi simbol matematik bercahaya | Latar hanya pengulangan `BackGround.jpg` pada `ParallaxLayer`. |
 

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b4xp128ixa2m8"
+path="res://.godot/imported/Transition SFX.mp3-7858d095bf9bc97f6c10cf8354c7ce79.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/Transition SFX.mp3"
+dest_files=["res://.godot/imported/Transition SFX.mp3-7858d095bf9bc97f6c10cf8354c7ce79.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

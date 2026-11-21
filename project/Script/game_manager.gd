@@ -24,6 +24,7 @@ const PROGRESS_FILE := "user://progress.cfg"
 
 var highest_unlocked_level: int = 1
 var completed_levels: Array[bool] = []
+var open_levels_panel_on_menu: bool = false
 
 
 func _ready() -> void:

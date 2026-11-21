@@ -67,9 +67,10 @@ func handle_player_collision(
 
 	if incoming_velocity_y > 0.0 and collision.get_normal().y < -0.5:
 		player.call("bounce_from_enemy", stomp_bounce_velocity)
+		AudioManager.play_sfx("stomp")
 		_die()
 	else:
-		player.call("die")
+		player.call("die", "enemy")
 
 
 func _die() -> void:

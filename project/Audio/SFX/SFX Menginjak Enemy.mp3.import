@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://buud5e8jdv85f"
+path="res://.godot/imported/SFX Menginjak Enemy.mp3-63a841633b6847519a8de0336d96a2d1.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/SFX Menginjak Enemy.mp3"
+dest_files=["res://.godot/imported/SFX Menginjak Enemy.mp3-63a841633b6847519a8de0336d96a2d1.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

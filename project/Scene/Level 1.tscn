@@ -78,6 +78,7 @@
 [ext_resource type="Texture2D" uid="uid://c86nabvb4ke7y" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_12.png" id="76_4886n"]
 [ext_resource type="Script" uid="uid://c35vccf1k8yhe" path="res://Script/checkpoint.gd" id="77_fsrw1"]
 [ext_resource type="Script" uid="uid://br1tnc2bs6bg" path="res://Script/disappearing_platform.gd" id="78_218vy"]
+[ext_resource type="PackedScene" uid="uid://fb02dujtj1to" path="res://Script/pause.tscn" id="99_pause"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_8d8pf"]
 points = PackedVector2Array(-75, 49, 662, 49, 662, 99, -75, 99)
@@ -766,3 +767,9 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Disappering Platform/Trigger" unique_id=508171449]
 shape = SubResource("RectangleShape2D_0kbc0")
+
+[node name="Pause Layer" type="CanvasLayer" parent="." unique_id=1500960245]
+process_mode = 3
+layer = 90
+
+[node name="Pause" parent="Pause Layer" unique_id=284216096 instance=ExtResource("99_pause")]

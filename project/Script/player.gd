@@ -16,7 +16,7 @@ extends CharacterBody2D
 @export var slash_scale_max: float = 0.03
 
 @onready var character_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var ufo: Node = $"../UFO"
+@onready var ufo: Sprite2D = $"../UFO"
 
 var spawn_position: Vector2
 var jumps_used: int = 0
@@ -27,6 +27,7 @@ var spawn_fall_active: bool = false
 var character_scale: Vector2
 var character_position: Vector2
 var jump_slash_particles: CPUParticles2D
+var breath_countdown: float = 1.0
 
 
 func _ready() -> void:
@@ -38,6 +39,7 @@ func _ready() -> void:
 	character_sprite.animation_finished.connect(_on_animation_finished)
 	character_sprite.visible = false
 	character_sprite.scale = Vector2.ZERO
+	ufo.visible = false
 	call_deferred("_play_spawn_intro")
 
 
@@ -87,6 +89,7 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor():
 		if not was_on_floor:
 			velocity.x = 0.0
+			AudioManager.play_sfx("landing")
 		jumps_used = 0
 
 	if pending_direction != 0:
@@ -102,15 +105,32 @@ func _physics_process(delta: float) -> void:
 	elif character_sprite.animation != "Jump":
 		character_sprite.play("Jump")
 
+	_update_idle_breath(delta)
+
 	if global_position.y > fall_death_y:
-		die()
+		die("fall")
+
+
+func _update_idle_breath(delta: float) -> void:
+	var idle_now := is_on_floor() and absf(velocity.x) < 1.0 and pending_direction == 0
+	if not idle_now or dead:
+		breath_countdown = 1.0
+		return
+
+	breath_countdown -= delta
+	if breath_countdown <= 0.0:
+		AudioManager.play_sfx("breath_idle")
+		breath_countdown = 1.0 + AudioManager.get_sfx_length("breath_idle")
 
 
 func _play_spawn_intro() -> void:
+	while SceneTransition.transitioning:
+		await get_tree().process_frame
 	await ufo.call("play_arrival", spawn_position)
 
 	await get_tree().create_timer(0.4).timeout
 	character_sprite.visible = true
+	AudioManager.play_sfx("spawn")
 	var character_appear := create_tween()
 	character_appear.tween_property(
 		character_sprite, "scale", character_scale, 0.8
@@ -197,16 +217,25 @@ func _jump(direction: int) -> void:
 	velocity.y = jump_velocity if jumps_used == 1 else double_jump_velocity
 	character_sprite.flip_h = direction < 0
 	character_sprite.play("Jump")
+	AudioManager.play_sfx("jump" if jumps_used == 1 else "double_jump")
 	_emit_jump_slash(direction)
 
 
-func die() -> void:
+func die(reason: String = "fall") -> void:
 	if dead:
 		return
 
 	dead = true
 	velocity = Vector2.ZERO
+	breath_countdown = 1.0
 	character_sprite.play("Death")
+	match reason:
+		"enemy":
+			AudioManager.play_sfx("death_enemy")
+		"blade":
+			AudioManager.play_sfx("death_blade")
+		_:
+			AudioManager.play_sfx("death_fall")
 
 
 func activate_checkpoint(checkpoint_position: Vector2) -> bool:
@@ -247,8 +276,10 @@ func _on_animation_finished() -> void:
 	velocity = Vector2.ZERO
 	jumps_used = 0
 	pending_direction = 0
+	breath_countdown = 1.0
 	dead = false
 	character_sprite.play("Idle")
+	AudioManager.play_sfx("spawn")
 	_reset_level_objects_after_respawn()
 
 

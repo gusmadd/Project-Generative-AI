@@ -28,3 +28,4 @@ func _on_body_entered(body: Node2D) -> void:
 
 	activated = true
 	play(AFTER_ANIMATION)
+	AudioManager.play_sfx("checkpoint")

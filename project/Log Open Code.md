@@ -107,3 +107,87 @@ Dokumen ini mencatat setiap perubahan yang dibuat Open Code pada proyek ini. Set
 **Perubahan:** Memperbarui [Script/player.gd](Script/player.gd) dan [README.md](README.md).
 
 **Catatan:** Nilai tetap diekspos di Inspector (`slash_amount`, `slash_lifetime`, `slash_scale_min/max`, `slash_speed_min/max`, `slash_curl`) sehingga bisa disetel lagi tanpa mengubah kode.
+
+---
+
+### 10. Sistem pause untuk semua level
+
+**Permintaan yang dirapikan:** Pasang scene pause buatan pengguna (pause button, Pause Panel, dan Settings Panel) ke seluruh scene level. Tombol pause perlu efek pop-up saat hover maupun klik. Saat ditekan, Pause Panel tampil dengan urutan animasi: `self_modulate` dari 0 ke nilai semula dengan cepat, BG dan Akar jatuh dari atas bersamaan lalu pop dan mengecil sambil turun sedikit, kemudian teks dan tombol-tombol (Restart, Level, Settings, Resume) muncul pop satu per satu. Setiap tombol juga ber-pop saat hover/klik. Resume melanjutkan game dan menutup panel dengan `self_modulate` ke 0 disertai pop. Restart memakai transisi lalu memuat ulang level yang sama. Level berpindah ke menu dengan panel Level terbuka memakai transisi. Settings memakai perlakuan sama seperti di menu, hanya saja Reset Progres di pause melakukan reset lalu transisi ke menu.
+
+**Hasil:** `Script/pause.gd` dibuat dan dipasang pada root `Script/pause.tscn`; scene tersebut di-instance sebagai node `Pause` di keenam scene level. Node pause ber-`process_mode = ALWAYS` sehingga tetap bekerja saat game di-pause, dengan tween yang juga berjalan saat paused. Seluruh alur tombol dan animasi sesuai urutan yang diminta sudah terpasang, termasuk penanda `GameManager.open_levels_panel_on_menu` agar menu membuka panel Level setelah transisi dari tombol Level.
+
+**Perubahan:** Menambah [Script/pause.gd](Script/pause.gd); memperbarui [Script/pause.tscn](Script/pause.tscn), keenam file `Scene/Level *.tscn`, [Script/game_manager.gd](Script/game_manager.gd), [Script/main_menu.gd](Script/main_menu.gd), dan [README.md](README.md).
+
+**Catatan:** Reset Progres di pause sengaja tidak mengembalikan slider volume — hanya progres level yang dihapus, sesuai permintaan. Verifikasi statis; jalankan di Godot untuk memastikan urutan animasi terasa pas.
+
+---
+
+### 11. Pause mengikuti kamera pemain
+
+**Permintaan yang dirapikan:** Buat agar UI pause selalu menempel pada kamera pemain, sehingga tidak ikut bergeser atau berubah saat `Camera2D` level mengikuti karakter.
+
+**Hasil:** Instance `pause.tscn` pada keenam level kini berada di dalam `CanvasLayer` bernama `"Pause Layer"` (`layer = 90`, `process_mode = ALWAYS`). `CanvasLayer` menggambar anak-anaknya dalam ruang layar, bukan ruang dunia kamera, jadi tombol pause dan panel pause tetap di posisi yang sama walaupun kamera bergerak atau zoom. Layer 90 dipilih agar tirai transisi (layer 100) tetap berada di atasnya.
+
+**Perubahan:** Memperbarui keenam file `Scene/Level *.tscn`, [README.md](README.md), dan entri log ini.
+
+**Catatan:** Tidak ada perubahan pada `pause.gd` atau struktur internal `pause.tscn`; hanya induk instance di scene level yang diubah.
+
+---
+
+### 12. UFO muncul setelah transisi selesai
+
+**Permintaan yang dirapikan:** Ubah timing kemunculan UFO agar baru tampil ketika transisi antar-scene selesai, bukan saat scene level masih dimuat di balik tirai.
+
+**Hasil:** `player.gd` menyembunyikan UFO di `_ready()` dan menunda `_play_spawn_intro()` sampai `SceneTransition.transitioning` bernilai `false` (yaitu setelah animasi transisi dan tirai selesai membuka). `play_arrival()` kemudian menampilkan UFO kembali. Saat level dijalankan langsung tanpa transisi, intro tetap berjalan normal tanpa jeda.
+
+**Perubahan:** Memperbarui [Script/player.gd](Script/player.gd) (tipe `ufo` menjadi `Sprite2D`, `ufo.visible = false` saat `_ready`, dan penunggu transisi di `_play_spawn_intro`) serta [README.md](README.md).
+
+**Catatan:** Tidak mengubah `ufo_animation.gd`; hanya urutan pemanggilannya yang ditunda. Parameter partikel slash milik pengguna tidak disentuh.
+
+---
+
+### 13. Penambahan seluruh SFX
+
+**Permintaan yang dirapikan:** Tambahkan efek suara untuk 13 kondisi: napas idle setelah 1 detik yang berulang dengan jeda 1 detik, lompat, double jump, mendarat, klik tombol, hover tombol, checkpoint, mati karena jatuh, mati karena terkena pisau/gergaji, mati karena musuh, masuk portal, menginjak musuh, spawn pemain (dari UFO maupun setelah mati), dan suara membuka panel UI.
+
+**Hasil:** Terdapat 14 file MP3 di `Audio/SFX/`. `AudioManager` kini membuat bus `SFX`, memuat seluruh berkas sekali, dan menyediakan 12 `AudioStreamPlayer` bergilir sehingga beberapa SFX bisa berbunyi bersamaan; slider SFX kini benar-benar mengatur volume bus tersebut. Napas idle mulai setelah 1 detik diam lalu diulang 1 detik setelah durasi suara berakhir. Kematian dibedakan lewat argumen `die(reason)` (`fall`, `blade`, `enemy`) yang dipanggil dari pemain, gergaji, dan musuh.
+
+**Perubahan:** Memperbarui [Script/audio_manager.gd](Script/audio_manager.gd), [Script/player.gd](Script/player.gd), [Script/enemy_alpha.gd](Script/enemy_alpha.gd), [Script/rotating_saw.gd](Script/rotating_saw.gd), [Script/multi_rotating_saw.gd](Script/multi_rotating_saw.gd), [Script/large_gear.gd](Script/large_gear.gd), [Script/checkpoint.gd](Script/checkpoint.gd), [Script/level_portal.gd](Script/level_portal.gd), [Script/main_menu.gd](Script/main_menu.gd), [Script/pause.gd](Script/pause.gd), dan [README.md](README.md).
+
+**Catatan:** `AudioManager` ber-`process_mode = ALWAYS` supaya SFX tombol panel pause terdengar saat game di-pause. Perubahan animasi hover/click yang dibuat pengguna tetap dipertahankan; hanya panggilan SFX yang disisipkan. Verifikasi statis; jalankan di Godot untuk mendengar hasilnya.
+
+---
+
+### 14. Perbaikan error inferensi tipe SFX
+
+**Permintaan yang dirapikan:** Pengguna menemukan error saat menjalankan proyek: `Error at (83, 21): Cannot infer the type of "path" variable because the value doesn't have a set type.` Perbaiki agar proyek bisa dijalankan.
+
+**Hasil:** Error berada di `AudioManager._load_sfx()`: `SFX_KEYS[key]` adalah `Variant` karena hasil lookup Dictionary, sehingga ekspresi `SFX_DIRECTORY + SFX_KEYS[key]` tidak memiliki tipe yang dapat disimpulkan untuk `:=`. Variabel diubah menjadi `var path: String = SFX_DIRECTORY + str(SFX_KEYS[key])`. Pemeriksaan seluruh skrip menunjukkan tidak ada pola serupa lainnya (dua kecocokan `:= ... [indeks]` lain memakai array bertipe, sehingga aman).
+
+**Perubahan:** Memperbarui [Script/audio_manager.gd](Script/audio_manager.gd).
+
+**Catatan:** Ini error parse/compile, jadi tidak muncul di log runtime Godot. Silakan jalankan lagi untuk memastikan error hilang.
+
+---
+
+### 15. SFX UFO datang
+
+**Permintaan yang dirapikan:** Tambahkan efek suara khusus ketika UFO datang, yaitu saat animasi kedatangan UFO diputar pada proses spawn pemain.
+
+**Hasil:** File `SFX UFO Datang.mp3` sudah tersedia di `Audio/SFX/`. `AudioManager` mendaftarkannya dengan key `ufo_arrival`, dan `play_arrival()` pada `ufo_animation.gd` memicunya tepat saat animasi dimulai (setelah transisi selesai, seiring penundaan spawn yang sudah diterapkan sebelumnya). Total SFX kini 15 file.
+
+**Perubahan:** Memperbarui [Script/audio_manager.gd](Script/audio_manager.gd), [Script/ufo_animation.gd](Script/ufo_animation.gd), dan [README.md](README.md).
+
+**Catatan:** SFX diputar lewat bus `SFX`, sehingga mengikuti slider SFX di panel Settings. Tidak ada perubahan pada timing animasi UFO.
+
+---
+
+### 16. SFX transisi antar scene
+
+**Permintaan yang dirapikan:** Tambahkan suara transisi yang diputar setiap kali perpindahan antar-scene terjadi.
+
+**Hasil:** File `Transition SFX.mp3` terdaftar dengan key `transition` di `AudioManager` dan dipicu di awal `SceneTransition.change_scene()`, tepat sebelum BGM fade-out dan tirai mulai menutup. Karena memakai bus `SFX`, suara ini tidak ikut teredam oleh fade-out BGM dan tetap mengikuti slider SFX. Total SFX kini 16 file.
+
+**Perubahan:** Memperbarui [Script/audio_manager.gd](Script/audio_manager.gd), [Script/scene_transition.gd](Script/scene_transition.gd), dan [README.md](README.md).
+
+**Catatan:** SFX berbunyi sekali per perpindahan scene, termasuk Restart, Level, Reset Progres dari pause, dan portal finish. Tidak mengubah urutan animasi transisi.

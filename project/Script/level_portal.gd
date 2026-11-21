@@ -11,6 +11,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if transitioning or not body is CharacterBody2D or not body.has_method("activate_checkpoint"):
 		return
 
+	AudioManager.play_sfx("portal")
 	GameManager.complete_current_level()
 	if not GameManager.has_next_level():
 		return
