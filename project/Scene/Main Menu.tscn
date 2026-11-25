@@ -36,15 +36,31 @@
 [ext_resource type="Texture2D" uid="uid://dwtqasfqxm4k2" path="res://Asset/Menu/Buttton levels/State=Lock, Level=9.png" id="32_u4fur"]
 [ext_resource type="Texture2D" uid="uid://kypq0a5tkteg" path="res://Asset/Menu/Buttton levels/State=Unlock, Level=10.png" id="33_a1dn2"]
 [ext_resource type="Texture2D" uid="uid://b88cwvg1w3f7i" path="res://Asset/Menu/Buttton levels/State=Lock, Level=10.png" id="34_vj344"]
+[ext_resource type="Texture2D" uid="uid://okkrw1eddpad" path="res://Asset/Menu/Buttton levels/Level 11 · Unlock.png" id="35_bwbpi"]
+[ext_resource type="Texture2D" uid="uid://ccafcwnbkfxjh" path="res://Asset/Menu/Buttton levels/Level 11 · Lock.png" id="36_srwof"]
+[ext_resource type="Texture2D" uid="uid://cfyndaxee77m7" path="res://Asset/Menu/Buttton levels/Level 12 · Unlock.png" id="37_2gopa"]
 [ext_resource type="Texture2D" uid="uid://c0f11kmwrcmx" path="res://Asset/Menu/Settings/Panel Settings • Transparent exterior.png" id="37_dd4tn"]
 [ext_resource type="Texture2D" uid="uid://biguj207gen5a" path="res://Asset/Menu/Settings/Text • SETTINGS.png" id="38_4tikg"]
+[ext_resource type="Texture2D" uid="uid://dgdk63ctiiyfc" path="res://Asset/Menu/Buttton levels/Level 12 · Lock.png" id="38_b7t6k"]
 [ext_resource type="Texture2D" uid="uid://dwgtfq0da86k4" path="res://Asset/Menu/Settings/Icon • Settings gear.png" id="39_5gqmo"]
+[ext_resource type="Texture2D" uid="uid://bfytm5sq6fdeq" path="res://Asset/Menu/Buttton levels/Level 13 · Unlock.png" id="39_w6e7s"]
 [ext_resource type="Texture2D" uid="uid://d3ustxghi5qp0" path="res://Asset/Menu/Settings/Button • Reset progress.png" id="40_4tikg"]
+[ext_resource type="Texture2D" uid="uid://cyt60y1l6b1uo" path="res://Asset/Menu/Buttton levels/Level 13 · Lock.png" id="40_382ab"]
 [ext_resource type="Texture2D" uid="uid://4cuw54bsikns" path="res://Asset/Transisi/Transisi 01 — BG kosong.png" id="41_5gqmo"]
+[ext_resource type="Texture2D" uid="uid://dv4fu8hdxlipx" path="res://Asset/Menu/Buttton levels/Level 14 · Unlock.png" id="41_554yk"]
 [ext_resource type="Texture2D" uid="uid://dw1re6erxswt5" path="res://Asset/Menu/Buttton levels/Box Text.png" id="42_11wg0"]
+[ext_resource type="Texture2D" uid="uid://bxh3e1rswbbtj" path="res://Asset/Menu/Buttton levels/Level 14 · Lock.png" id="42_tbtrr"]
+[ext_resource type="Texture2D" uid="uid://6c1scsdk8vy1" path="res://Asset/Menu/Buttton levels/Level 15 · Unlock.png" id="43_pkfs0"]
 [ext_resource type="Texture2D" uid="uid://cyfy24f634jiq" path="res://Asset/Menu/Buttton levels/Kana.png" id="43_vruva"]
+[ext_resource type="Texture2D" uid="uid://c4vteuim0noii" path="res://Asset/Menu/Buttton levels/Level 15 · Lock.png" id="44_8l4ca"]
 [ext_resource type="Texture2D" uid="uid://8gxxtmrrr53n" path="res://Asset/Menu/Buttton levels/Kiri.png" id="44_ijouy"]
+[ext_resource type="Texture2D" uid="uid://b46o8vmq0eb0j" path="res://Asset/Menu/Buttton levels/Level 16 · Unlock.png" id="45_0qtxa"]
 [ext_resource type="Texture2D" uid="uid://dmfb0d6e6ny5r" path="res://Asset/Menu/Settings/MUSIC • Handle.png" id="45_u4fur"]
+[ext_resource type="Texture2D" uid="uid://bp1gli3kyhfnj" path="res://Asset/Menu/Buttton levels/Level 16 · Lock.png" id="46_tja0r"]
+[ext_resource type="Texture2D" uid="uid://du32gsltg1c37" path="res://Asset/Menu/Buttton levels/Level 17 · Unlock.png" id="47_csqab"]
+[ext_resource type="Texture2D" uid="uid://ctps2p20df4q" path="res://Asset/Menu/Buttton levels/Level 17 · Lock.png" id="48_6wvu8"]
+[ext_resource type="Texture2D" uid="uid://ca51wri620e4o" path="res://Asset/Menu/Buttton levels/Level 18 · Unlock.png" id="49_kr2w1"]
+[ext_resource type="Texture2D" uid="uid://cdyv342caixrw" path="res://Asset/Menu/Buttton levels/Level 18 · Lock.png" id="50_7mfjb"]
 [ext_resource type="Texture2D" uid="uid://dp8yikxgt71w" path="res://Asset/Menu/Settings/Text • MUSIC.png" id="50_music_text"]
 [ext_resource type="Texture2D" uid="uid://btula47hpdww1" path="res://Asset/Menu/Settings/MUSIC • Track.png" id="51_music_track"]
 [ext_resource type="Texture2D" uid="uid://ct0emkdkd76sk" path="res://Asset/Menu/Settings/MUSIC • Fill.png" id="52_music_fill"]
@@ -343,22 +359,22 @@ flip_h = true
 [node name="Level 11" type="TextureButton" parent="Panel panel/Round 2" unique_id=375155548]
 layout_mode = 0
 offset_left = 591.0
-offset_top = 433.0
+offset_top = 445.0
 offset_right = 774.0
-offset_bottom = 616.0
-texture_normal = ExtResource("23_4tikg")
-texture_disabled = ExtResource("24_5gqmo")
+offset_bottom = 628.0
+texture_normal = ExtResource("35_bwbpi")
+texture_disabled = ExtResource("36_srwof")
 ignore_texture_size = true
 stretch_mode = 5
 
 [node name="Level 12" type="TextureButton" parent="Panel panel/Round 2" unique_id=457507804]
 layout_mode = 0
 offset_left = 924.0
-offset_top = 417.0
+offset_top = 442.0
 offset_right = 1110.0
-offset_bottom = 603.0
-texture_normal = ExtResource("25_myd82")
-texture_disabled = ExtResource("26_0moh7")
+offset_bottom = 628.0
+texture_normal = ExtResource("37_2gopa")
+texture_disabled = ExtResource("38_b7t6k")
 ignore_texture_size = true
 stretch_mode = 5
 
@@ -377,8 +393,8 @@ offset_left = 239.0
 offset_top = 210.0
 offset_right = 431.0
 offset_bottom = 402.0
-texture_normal = ExtResource("27_11wg0")
-texture_disabled = ExtResource("28_vruva")
+texture_normal = ExtResource("39_w6e7s")
+texture_disabled = ExtResource("40_382ab")
 ignore_texture_size = true
 stretch_mode = 5
 
@@ -388,8 +404,8 @@ offset_left = 582.0
 offset_top = 212.0
 offset_right = 771.0
 offset_bottom = 401.0
-texture_normal = ExtResource("29_ijouy")
-texture_disabled = ExtResource("30_ysxw3")
+texture_normal = ExtResource("41_554yk")
+texture_disabled = ExtResource("42_tbtrr")
 ignore_texture_size = true
 stretch_mode = 5
 
@@ -399,8 +415,8 @@ offset_left = 913.0
 offset_top = 211.0
 offset_right = 1103.0
 offset_bottom = 401.0
-texture_normal = ExtResource("31_owx60")
-texture_disabled = ExtResource("32_u4fur")
+texture_normal = ExtResource("43_pkfs0")
+texture_disabled = ExtResource("44_8l4ca")
 ignore_texture_size = true
 stretch_mode = 5
 
@@ -410,31 +426,30 @@ offset_left = 242.0
 offset_top = 436.0
 offset_right = 426.0
 offset_bottom = 620.0
-texture_normal = ExtResource("33_a1dn2")
-texture_disabled = ExtResource("34_vj344")
+texture_normal = ExtResource("45_0qtxa")
+texture_disabled = ExtResource("46_tja0r")
 ignore_texture_size = true
 stretch_mode = 5
-flip_h = true
 
 [node name="Level 17" type="TextureButton" parent="Panel panel/Round 3" unique_id=1758966488]
 layout_mode = 0
 offset_left = 591.0
-offset_top = 433.0
+offset_top = 440.0
 offset_right = 774.0
-offset_bottom = 616.0
-texture_normal = ExtResource("23_4tikg")
-texture_disabled = ExtResource("24_5gqmo")
+offset_bottom = 623.0
+texture_normal = ExtResource("47_csqab")
+texture_disabled = ExtResource("48_6wvu8")
 ignore_texture_size = true
 stretch_mode = 5
 
 [node name="Level 18" type="TextureButton" parent="Panel panel/Round 3" unique_id=1700377313]
 layout_mode = 0
 offset_left = 924.0
-offset_top = 417.0
+offset_top = 442.0
 offset_right = 1110.0
-offset_bottom = 603.0
-texture_normal = ExtResource("25_myd82")
-texture_disabled = ExtResource("26_0moh7")
+offset_bottom = 628.0
+texture_normal = ExtResource("49_kr2w1")
+texture_disabled = ExtResource("50_7mfjb")
 ignore_texture_size = true
 stretch_mode = 5
 

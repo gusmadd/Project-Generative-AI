@@ -191,3 +191,139 @@ Dokumen ini mencatat setiap perubahan yang dibuat Open Code pada proyek ini. Set
 **Perubahan:** Memperbarui [Script/audio_manager.gd](Script/audio_manager.gd), [Script/scene_transition.gd](Script/scene_transition.gd), dan [README.md](README.md).
 
 **Catatan:** SFX berbunyi sekali per perpindahan scene, termasuk Restart, Level, Reset Progres dari pause, dan portal finish. Tidak mengubah urutan animasi transisi.
+
+---
+
+### 17. Intro narasi Level 1 dan Level 6
+
+**Permintaan yang dirapikan:** Pasang scene intro teks buatan pengguna pada Level 1 dan Level 6. UFO datang dan menspawn pemain, lalu pemain masih belum bisa bergerak sementara narasi muncul kalimat per kalimat dengan efek mengetik; Enter saat masih mengetik melewati animasi, Enter berikutnya menghapus kalimat dari belakang lebih cepat sebelum lanjut. Teks memakai font Orbitron, label "Click enter" ber-fade, dan SFX diputar tiap huruf. Level 6 memakai narasi khusus, lalu tombol Yes dan Back to menu muncul dengan pop-up; Yes mengubah teks menjadi hitung mundur yang bisa diatur dan memulai gameplay, Back kembali ke menu. Jika waktu habis sebelum portal, gameplay berhenti, kamera tergoyang, animasi Death diputar tanpa SFX, lalu transisi memuat ulang level.
+
+**Hasil:** `Script/intro_text_level.gd` dibuat dan dipasang pada `Script/Intro Text level.tscn` (font Orbitron diterapkan pada `Main Text` dan `Click enter`). Sinyal `spawn_intro_finished` dari `player.gd` memicu narasi tepat setelah UFO selesai; `player.narrative_active` mengunci input dan fisik sampai narasi/countdown selesai. `die_silent()` ditambahkan pada pemain agar Death bisa diputar tanpa SFX saat timeout. Key `text_intro` ditambahkan ke `AudioManager`. Intro di-instance di Level 1 dan Level 6 lewat `"Intro Layer"` (`CanvasLayer`, layer 80); `countdown_seconds` diekspos di Inspector.
+
+**Perubahan:** Menambah [Script/intro_text_level.gd](Script/intro_text_level.gd); memperbarui [Script/Intro Text level.tscn](Script/Intro Text level.tscn), [Script/player.gd](Script/player.gd), [Script/audio_manager.gd](Script/audio_manager.gd), [Scene/Level 1.tscn](Scene/Level%201.tscn), [Scene/Level 6.tscn](Scene/Level%206.tscn), dan [README.md](README.md).
+
+**Catatan:** Level 6 versi pengguna saat ini tidak memuat instance pause, sehingga narasi "Pause terkunci" konsisten dengan scene. Narasi ditulis persis di dalam skrip agar tidak bergantung pada escaping string `.tscn`. Verifikasi statis; jalankan di Godot untuk mengatur kecepatan ketik dan durasi countdown sesuai selera.
+
+---
+
+### 18. Perbaikan glyph dan urutan gagal/berhasil Level 6
+
+**Permintaan yang dirapikan:** Pertama, angka dan titik tidak tampil pada teks intro meski huruf tampil normal — perbaiki agar seluruh karakter terlihat. Kedua, pada Level 6 durasi goyangan kamera saat gagal harus bisa diatur; urutannya menjadi: goyang kamera, jeda 1 detik, animasi Death tanpa respawn, jeda 1 detik, transisi, lalu ke menu dengan panel Level terbuka. Jika berhasil masuk portal, transisi juga menuju menu dengan panel Level terbuka.
+
+**Hasil:** Skrip intro memeriksa glyph `0-9`, `:`, `.`, dan `$` pada font Orbitron; bila ada yang tidak ada, `SystemFont` ditambahkan sebagai fallback FontFile. Durasi goyang diekspos sebagai `shake_duration` dan jeda sebagai `fail_pause_seconds` (keduanya bisa diatur di Inspector instance Level 6). Timeout kini berjalan: goyang → jeda → `die_silent()` dengan `skip_respawn_on_death` → jeda → transisi ke menu dengan `GameManager.open_levels_panel_on_menu = true`. Portal Level 6 juga diarahkan ke menu dengan panel Level terbuka.
+
+**Perubahan:** Memperbarui [Script/intro_text_level.gd](Script/intro_text_level.gd), [Script/player.gd](Script/player.gd), [Script/level_portal.gd](Script/level_portal.gd), [Scene/Level 6.tscn](Scene/Level%206.tscn), dan [README.md](README.md).
+
+**Catatan:** `die_silent()` tetap tidak memutar SFX. Flag `skip_respawn_on_death` dicek di `_on_animation_finished()` agar pemain tidak muncul kembali sebelum transisi. Jika glyph angka/titik sebenarnya sudah ada di Orbitron, fallback tidak akan dipakai; silakan beri tahu bila masalah masih terjadi agar bisa diselidiki lebih lanjut.
+
+---
+
+### 19. Main Text memakai font bersih
+
+**Permintaan yang dirapikan:** Berdasarkan screenshot yang dikirim pengguna, titik pada narasi Level 1 tampil sebagai simbol aneh setelah kata "BERIKUTNYA" meski huruf Orbitron terlihat normal. Pengguna memilih agar Main Text memakai font bersih, sementara Orbitron tetap dipakai untuk elemen lain.
+
+**Hasil:** Fallback otomatis yang sebelumnya ditambahkan tidak efektif karena Orbitron memiliki glyph titik (jadi `has_char()` bernilai true) namun bentuknya tidak sesuai. `Main Text` kini memakai `ThemeDB.fallback_font` (font default Godot) dengan ukuran 32, sehingga titik, titik dua, angka countdown, dan tanda baca lainnya tampil normal. `Click enter` dan tombol tetap memakai Orbitron.
+
+**Perubahan:** Memperbarui [Script/intro_text_level.gd](Script/intro_text_level.gd), [Script/Intro Text level.tscn](Script/Intro Text level.tscn), dan [README.md](README.md).
+
+**Catatan:** Perubahan ini tidak memengaruhi urutan narasi, typewriter, maupun countdown. Silakan cek lagi tampilan Level 1 dan countdown Level 6.
+
+---
+
+### 20. Audit menyeluruh dan perbaikan bug (kecuali level 7+)
+
+**Permintaan yang dirapikan:** Audit seluruh proyek untuk mencari error dan bug, telusuri alur main dari awal sampai akhir, lalu perbaiki temuan tersebut. Level 7 dan seterusnya memang belum dibuat, jadi tidak perlu dibenahi.
+
+**Hasil:** Log runtime tidak memuat ERROR (hanya warning lama `ConcavePolygonShape2D`), dan semua path, UID, SubResource, `@onready`, autoload, dan tanda tangan sinyal valid. Bug yang ditemukan dan diperbaiki: timeout Level 6 bisa menggantung bila pemain sudah mati; flag `skip_respawn_on_death` tidak pernah dibersihkan; transisi yang ditolak membuat flag panel Level bocor; countdown tidak reset saat pemain mati; Enter/double-click bisa memicu korutin ganda; checkpoint bisa terlewat saat spawn intro; `flip_h` tidak valid pada `TextureButton`; state Next/round menu tidak segar setelah reset; format countdown `00:60`; dan intro tetap mengetik saat pause. Watchdog 15 dtk ditambahkan agar `transitioning` tidak nyangkut.
+
+**Perubahan:** Memperbarui [Script/player.gd](Script/player.gd), [Script/intro_text_level.gd](Script/intro_text_level.gd), [Script/scene_transition.gd](Script/scene_transition.gd), [Script/level_portal.gd](Script/level_portal.gd), [Script/checkpoint.gd](Script/checkpoint.gd), [Script/main_menu.gd](Script/main_menu.gd), [Script/pause.gd](Script/pause.gd), [Scene/Main Menu.tscn](Scene/Main%20Menu.tscn), [Scene/Level 1.tscn](Scene/Level%201.tscn), [Scene/Level 6.tscn](Scene/Level%206.tscn), dan [README.md](README.md).
+
+**Catatan:** Level 7–18 sengaja dibiarkan terkunci sesuai keputusan pengguna. Satu warning collision polygon masih ada di data level dan tidak diubah agar geometri tabrakan tidak bergeser.
+
+---
+
+### 21. Countdown Level 6 tidak reset saat mati
+
+**Permintaan yang dirapikan:** Untuk Level 6, ketika pemain mati, waktu tidak perlu diulang dari awal — hitungan tetap berjalan.
+
+**Hasil:** Koneksi sinyal `player_died` dan handler `_on_player_died()` dihapus dari `intro_text_level.gd`, sehingga kematian tidak menyentuh `time_left`. Sinyal `player_died` di `player.gd` dibiarkan karena tidak membahayakan dan berguna untuk kebutuhan lain.
+
+**Perubahan:** Memperbarui [Script/intro_text_level.gd](Script/intro_text_level.gd) dan [README.md](README.md).
+
+**Catatan:** Urutan timeout tetap sama: goyang kamera → jeda → Death tanpa SFX/respawn → jeda → transisi ke menu dengan panel Level terbuka.
+
+---
+
+### 22. Integrasi aset tombol 11–18, analisis level 1–6, dan level 7–12
+
+**Permintaan yang dirapikan:** (1) aset tombol level 11–18 sudah ditambahkan dan perlu diintegrasikan; (2) meninjau desain dan kesulitan Level 1–6; (3) membuat Level 7 lebih sulit dari Level 5, Level 8–11 dengan kenaikan konsisten, serta Level 12 bergaya Level 6 tanpa checkpoint maupun pause dan lebih sulit, gameplay diprioritaskan sebelum narasi.
+
+**Hasil:** `_update_level_buttons()` kini memetakan nama aset dua konvensi — `State=<Status>, Level=<N>.png` untuk 1–10 dan `Level <N> · <Status>.png` untuk 11–18 — sehingga status Complete/Unlock/Lock tampil benar. Audit Level 1–6 dilakukan dengan membaca seluruh scene dan skrip (Godot tidak dapat dijalankan dari terminal di mesin ini, jadi verifikasi bersifat statis): kurva kesulitan naik dari 1 hazard di Level 1 menjadi 5 platform hilang, 2 gerigi besar, dan 4 musuh di Level 5, lalu Level 6 berubah menjadi ujian tanpa checkpoint/pause. Enam scene baru dibuat dari salinan Level 5 (7–11) dan Level 6 (12), dengan kecepatan hazard dinaikkan bertahap (×1,10 sampai ×1,45) dan penambahan saw, multi-saw, serta musuh. Level 12 memakai portal akhir yang kembali ke menu.
+
+**Perubahan:** Memperbarui [Script/main_menu.gd](Script/main_menu.gd), [Script/level_portal.gd](Script/level_portal.gd), [README.md](README.md), serta membuat [Scene/Level 7.tscn](Scene/Level%207.tscn), [Scene/Level 8.tscn](Scene/Level%208.tscn), [Scene/Level 9.tscn](Scene/Level%209.tscn), [Scene/Level 10.tscn](Scene/Level%2010.tscn), [Scene/Level 11.tscn](Scene/Level%2011.tscn), dan [Scene/Level 12.tscn](Scene/Level%2012.tscn).
+
+**Catatan:** Narasi untuk Level 7–12 belum dibuat sesuai permintaan. Level 13–18 tetap terkunci sampai scene-nya dibuat.
+
+---
+
+### 23. Tata ulang Level 7–12 dan perbaikan unlock Level 7
+
+**Permintaan yang dirapikan:** Susunan platform Level 7 tidak boleh merupakan salinan Level 5 — harus dirancang sendiri dengan kesulitan sedikit di atas Level 5. Selain itu, tombol Level 7 masih terkunci walaupun Level 6 sudah selesai.
+
+**Hasil:** Penyebab tombol terkunci ditemukan: Level 6 diselesaikan pada saat `Level 7.tscn` belum ada, sehingga `complete_current_level()` tidak pernah menaikkan `highest_unlocked_level`. `get_highest_unlocked_level()` sekarang menghitung ulang dari `completed_levels`, sehingga progres lama otomatis membuka Level 7.
+
+Keenam scene 7–12 dibangun ulang dari nol dengan rantai platform buatan sendiri (segmen `RectangleShape2D` unik pada koordinat terencana, gap 150–160 px, kenaikan 40–120 px), bukan salinan Level 5/6. Level 7 memakai 12 segmen ≈10.200 px dengan empat saw, dua multi-saw, dua moving platform, satu gerigi besar, trampoline, dan dua checkpoint. Level 8–11 menambah panjang rantai serta kecepatan hazard secara bertahap. Level 12 memakai 10 segmen mendaki, tanpa checkpoint dan tanpa Pause, dengan dua gerigi besar dan enam saw.
+
+**Perubahan:** Memperbarui [Script/game_manager.gd](Script/game_manager.gd), [README.md](README.md), dan menimpa [Scene/Level 7.tscn](Scene/Level%207.tscn) sampai [Scene/Level 12.tscn](Scene/Level%2012.tscn).
+
+**Catatan:** Semua scene divalidasi statis: tidak ada `ExtResource`/`SubResource` yang tidak terdefinisi dan tidak ada duplikat path node. Narasi Level 7–12 menyusul.
+
+---
+
+### 24. Perbaikan scene Level 7–12 gagal dibuka
+
+**Permintaan yang dirapikan:** Godot menampilkan "Scene file 'Level 7.tscn' appears to be invalid/corrupt" dan transisi ke Level 7 gagal dengan error 20.
+
+**Hasil:** Dua penyebab ditemukan dan diperbaiki. Pertama, generator menyisipkan header `[gd_scene]` Level 5 sehingga scene baru memiliki dua tag `[gd_scene]` (parse error `Unknown tag 'gd_scene'`). Kedua, node `ParallaxBackground` ditulis tanpa `parent="."`, sehingga Godot menganggapnya sebagai root kedua dan menolak instantiasi (`Invalid scene: node ParallaxBackground does not specify its parent node`). Keduanya sudah dibetulkan pada generator dan kelima scene generator dijalankan ulang.
+
+**Validasi:** Menggunakan Godot 4.7.2 CLI (`--headless`, `load()` + `instantiate()`), keenam scene Level 7–12 berhasil di-instantiate tanpa error. Cache UID editor dan `selected_paths` dibersihkan agar editor tidak memakai cache scene rusak.
+
+**Perubahan:** Menimpa [Scene/Level 7.tscn](Scene/Level%207.tscn) sampai [Scene/Level 12.tscn](Scene/Level%2012.tscn).
+
+**Catatan:** Error `Identifier not found: AudioManager` yang muncul saat pengecekan CLI adalah efek mode `--script` (autoload tidak dibuat), bukan masalah project saat dijalankan normal.
+
+---
+
+### 25. Font, ukuran, dan animasi darurat countdown Level 6
+
+**Permintaan yang dirapikan:** Teks waktu countdown Level 6 perlu memakai font Trancity, ukuran font 50, dan saat tersisa 20 detik harus melakukan animasi pop-up terus-menerus dengan warna memerah.
+
+**Hasil:** Pemeriksaan glyph dengan Godot CLI menunjukkan `Transcity DEMO.otf` **tidak memiliki glyph angka 0–9 maupun titik dua**, sehingga countdown selalu jatuh ke font default. Font Trancity tetap dipakai untuk `Main Text`, dengan `fallbacks` diisi `Orbitron` agar angka countdown memakai font yang disengaja (bukan default Godot). Countdown kini memakai ukuran 50 dan, sejak sisa 20 detik, warnanya merah dengan tween pop-up berulang (1,0 ↔ 1,2). Tween dihentikan saat timeout.
+
+**Perubahan:** Memperbarui [Script/intro_text_level.gd](Script/intro_text_level.gd) dan [README.md](README.md).
+
+**Catatan:** Validasi awal: scene intro dijalankan headless dengan autoload aktif tanpa error.
+
+---
+
+### 26. Teks intro dikembalikan ke Orbitron
+
+**Permintaan yang dirapikan:** Teks narasi intro tampil seperti deretan segitiga peringatan, bukan huruf yang terbaca.
+
+**Hasil:** Pemeriksaan glyph membuktikan `Transcity DEMO.otf` memang memuat 26 huruf, tetapi bentuknya adalah dekorasi pita peringatan, serta tidak memiliki angka maupun tanda baca. Font ini cocok sebagai aksen visual, bukan untuk teks narasi/countdown. `Main Text` sekarang memakai `Orbitron` (mudah dibaca, lengkap dengan angka dan tanda baca); konstanta `NARRATIVE_FONT_PATH` menggantikan `TRANSCITY_FONT_PATH`/`DIGIT_FONT_PATH` dan fallback font dihapus.
+
+**Perubahan:** Memperbarui [Script/intro_text_level.gd](Script/intro_text_level.gd) dan [README.md](README.md).
+
+**Catatan:** Animasi countdown merah + pop-up pada sisa 20 detik dan ukuran font 50 dari entri #25 tetap berlaku. Validasi headless dengan autoload aktif: tanpa error.
+
+---
+
+### 27. Font intro diganti ke Madiosa
+
+**Permintaan yang dirapikan:** Font `Madiosa.ttf` sudah ditambahkan di asset dan dipakai saja untuk teks intro.
+
+**Hasil:** Pemeriksaan glyph Madiosa menunjukkan 26 huruf kecil, 26 huruf kapital, 10 angka, dan tanda baca lengkap. `NARRATIVE_FONT_PATH` diarahkan ke `Madiosa.ttf`, dan font diterapkan ke `Main Text` maupun `Click enter`. Karena `Transcity DEMO.otf` sudah dihapus dari asset tetapi masih direferensikan oleh `ext_resource` scene, referensi tersebut diganti ke Madiosa dengan UID `uid://blmh7d6tdm1t1` — jika tidak, scene gagal di-parse.
+
+**Perubahan:** Memperbarui [Script/intro_text_level.gd](Script/intro_text_level.gd), [Script/Intro Text level.tscn](Script/Intro%20Text%20level.tscn), dan [README.md](README.md).
+
+**Catatan:** Validasi headless: scene intro open dan berjalan tanpa error. Countdown tetap ukuran 50, merah, dan pop-up pada sisa 20 detik.

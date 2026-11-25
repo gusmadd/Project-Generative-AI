@@ -254,7 +254,8 @@ func _on_level_pressed() -> void:
 	await _click_pop(level_button)
 	get_tree().paused = false
 	GameManager.open_levels_panel_on_menu = true
-	SceneTransition.change_scene(MENU_SCENE_PATH)
+	if not SceneTransition.change_scene(MENU_SCENE_PATH):
+		GameManager.open_levels_panel_on_menu = false
 
 
 func _on_settings_pressed() -> void:

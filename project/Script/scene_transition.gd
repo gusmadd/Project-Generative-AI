@@ -5,6 +5,7 @@ const CURTAIN_COLOR := Color("#030817")
 const CURTAIN_DURATION := 0.3
 const TRANSITION_SPEED_SCALE := 1.0
 const TRANSITION_LAYER := 100
+const TRANSITION_TIMEOUT := 15.0
 
 var transitioning: bool = false
 
@@ -20,7 +21,15 @@ func change_scene(scene_path: String) -> bool:
 	AudioManager.fade_out_and_stop()
 	transitioning = true
 	call_deferred("_run_transition", scene_path)
+	_watchdog()
 	return true
+
+
+func _watchdog() -> void:
+	await get_tree().create_timer(TRANSITION_TIMEOUT).timeout
+	if transitioning:
+		push_error("Scene transition timed out; releasing lock.")
+		transitioning = false
 
 
 func _run_transition(scene_path: String) -> void:

@@ -1,5 +1,7 @@
 extends Area2D
 
+const MENU_SCENE_PATH := "res://Scene/Main Menu.tscn"
+
 var transitioning: bool = false
 
 
@@ -13,7 +15,24 @@ func _on_body_entered(body: Node2D) -> void:
 
 	AudioManager.play_sfx("portal")
 	GameManager.complete_current_level()
-	if not GameManager.has_next_level():
+
+	var current := get_tree().current_scene
+	var is_final_level := (
+		current != null
+		and (
+			current.scene_file_path.ends_with("Level 6.tscn")
+			or current.scene_file_path.ends_with("Level 12.tscn")
+		)
+	)
+	if is_final_level or not GameManager.has_next_level():
+		GameManager.open_levels_panel_on_menu = true
+		if not SceneTransition.change_scene(MENU_SCENE_PATH):
+			GameManager.open_levels_panel_on_menu = false
+			return
+		transitioning = true
+		set_deferred("monitoring", false)
+		body.set_physics_process(false)
+		body.set_process_unhandled_input(false)
 		return
 
 	transitioning = true

@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+signal spawn_intro_finished
+signal player_died
+
 @export var horizontal_speed: float = 250.0
 @export var jump_velocity: float = -405.0
 @export var double_jump_velocity: float = -405.0
@@ -28,9 +31,12 @@ var character_scale: Vector2
 var character_position: Vector2
 var jump_slash_particles: CPUParticles2D
 var breath_countdown: float = 1.0
+var narrative_active: bool = false
+var skip_respawn_on_death: bool = false
 
 
 func _ready() -> void:
+	add_to_group("player")
 	_setup_jump_slash()
 	spawn_position = global_position
 	character_scale = character_sprite.scale
@@ -44,7 +50,7 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if dead or spawn_intro_active or not (event is InputEventKey):
+	if dead or spawn_intro_active or narrative_active or not (event is InputEventKey):
 		return
 
 	var key_event := event as InputEventKey
@@ -63,7 +69,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if dead or (spawn_intro_active and not spawn_fall_active):
+	if dead or narrative_active or (spawn_intro_active and not spawn_fall_active):
 		return
 
 	var was_on_floor := is_on_floor()
@@ -157,6 +163,24 @@ func _play_spawn_intro() -> void:
 
 	spawn_intro_active = false
 	spawn_fall_active = false
+	spawn_intro_finished.emit()
+
+
+func die_silent() -> void:
+	if dead:
+		return
+	dead = true
+	velocity = Vector2.ZERO
+	breath_countdown = 1.0
+	character_sprite.play("Death")
+	player_died.emit()
+
+
+func restore_after_cancelled_death() -> void:
+	dead = false
+	skip_respawn_on_death = false
+	velocity = Vector2.ZERO
+	character_sprite.play("Idle")
 
 
 func _setup_jump_slash() -> void:
@@ -229,6 +253,7 @@ func die(reason: String = "fall") -> void:
 	velocity = Vector2.ZERO
 	breath_countdown = 1.0
 	character_sprite.play("Death")
+	player_died.emit()
 	match reason:
 		"enemy":
 			AudioManager.play_sfx("death_enemy")
@@ -270,6 +295,9 @@ func bounce_from_enemy(bounce_velocity: float) -> void:
 
 func _on_animation_finished() -> void:
 	if not dead:
+		return
+	if skip_respawn_on_death:
+		skip_respawn_on_death = false
 		return
 
 	global_position = spawn_position

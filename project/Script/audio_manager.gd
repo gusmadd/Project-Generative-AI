@@ -19,6 +19,7 @@ const SFX_KEYS := {
 	"spawn": "SFX Spawn Player.mp3",
 	"ufo_arrival": "SFX UFO Datang.mp3",
 	"transition": "Transition SFX.mp3",
+	"text_intro": "SFX Text intro.mp3",
 	"ui_open": "SFX UI Pop Open.mp3",
 }
 const SFX_PLAYER_COUNT := 12

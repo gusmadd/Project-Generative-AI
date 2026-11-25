@@ -114,7 +114,7 @@ Alur yang terpasang:
 - Setelah scene tujuan dimuat dan tirai selesai dibuka, BGM scene tujuan baru mulai `play()` dengan fade-in 0,9 dtk dari −40 dB ke 0 dB (volume target berasal dari bus `Music`).
 - Nilai slider MUSIC dan SFX disimpan di `user://settings.cfg`. Keduanya kini benar-benar mengendalikan bus `Music` dan `SFX`.
 
-**SFX** — 16 file MP3 di `Audio/SFX/` dimuat sekali saat `AudioManager` siap dan diputar lewat kumpulan `AudioStreamPlayer` (12 player bergilir, bus `SFX`) agar beberapa suara bisa terdengar bersamaan:
+**SFX** — 17 file MP3 di `Audio/SFX/` dimuat sekali saat `AudioManager` siap dan diputar lewat kumpulan `AudioStreamPlayer` (12 player bergilir, bus `SFX`) agar beberapa suara bisa terdengar bersamaan:
 
 | Key | File | Pemicu |
 | :--- | :--- | :--- |
@@ -129,13 +129,25 @@ Alur yang terpasang:
 | `spawn` | `SFX Spawn Player.mp3` | Muncul dari UFO dan setelah respawn |
 | `ufo_arrival` | `SFX UFO Datang.mp3` | UFO mulai turun saat spawn player |
 | `transition` | `Transition SFX.mp3` | Transisi antar-scene dimulai (bersamaan dengan BGM fade-out) |
+| `text_intro` | `SFX Text intro.mp3` | Setiap huruf yang muncul pada narasi intro level |
 | `ui_open` | `SFX UI Pop Open.mp3` | Panel Level/Settings di menu serta panel Pause/Settings di pause |
 
 `AudioManager` ber-`process_mode = ALWAYS`, sehingga SFX tombol tetap terdengar walaupun game sedang di-pause.
 
-### 4.5 Sistem Pause
+### 4.5 Intro Narasi Level
 
-`Script/pause.tscn` + `Script/pause.gd` di-instance di **keenam scene level** di dalam node `"Pause Layer"` (`CanvasLayer`, `layer = 90`, `process_mode = ALWAYS`). `CanvasLayer` membuat UI pause tetap menempel pada tampilan kamera/ viewport dan tidak ikut bergeser saat `Camera2D` pemain bergerak atau zoom; layer 90 berada di bawah layer transisi (100). Instance `Pause` juga ber-`process_mode = ALWAYS` agar tetap merespons saat `get_tree().paused = true`.
+`Script/Intro Text level.tscn` + `Script/intro_text_level.gd` dipasang di **Level 1 dan Level 6** dalam `"Intro Layer"` (`CanvasLayer`, layer 80). Font **`Madiosa.ttf`** (`Asset/Intro Level/Madiosa.ttf`) dipakai pada `Main Text` **dan `Click enter`** — lengkap untuk huruf, angka, dan tanda baca. Font lama `Transcity DEMO.otf` sudah dihapus dari asset dan referensinya di scene diganti ke Madiosa.
+
+- Pemain tetap terkunci (`player.narrative_active = true`) dari UFO selesai sampai narasi berakhir; sinyal `spawn_intro_finished` memicu narasi.
+- Teks muncul per huruf (typewriter, SFX `text_intro` tiap huruf). `Enter` saat masih mengetik → langsung tampilkan kalimat penuh; `Enter` berikutnya → kalimat dihapus dari belakang lebih cepat, lalu lanjut kalimat berikutnya. Label `Click enter` berdenyut (fade).
+- **Level 1**: 3 kalimat narasi; setelah kalimat terakhir di-enter, intro hilang dan pemain boleh bergerak.
+- **Level 6**: 5 kalimat (termasuk "apakah kamu yakin ingin lanjut"). Setelah kalimat terakhir, tombol `Yes Button` dan `Back To menu Button` muncul ber-pop; Yes → `Main Text` berubah menjadi hitung mundur yang bisa diatur (`countdown_seconds`, default 60 dtk) dengan animasi pop, lalu gameplay dimulai; Back → transisi ke menu. Saat waktu habis: input dimatikan, kamera digoyang selama `shake_duration` (default 0,6 dtk), jeda `fail_pause_seconds` (default 1 dtk), animasi Death diputar **tanpa SFX dan tanpa respawn**, jeda 1 dtk, lalu transisi ke Main Menu dengan panel Level terbuka. Jika pemain berhasil masuk portal tepat waktu, transisi juga menuju Main Menu dengan panel Level terbuka. Kematian saat countdown **tidak** mengulang waktu — hitungan tetap berjalan; tombol Yes/Back dan Enter memiliki pengaman terhadap pemicu ganda.
+- Countdown Level 6 memakai ukuran font **50** (`COUNTDOWN_FONT_SIZE`). Saat sisa waktu ≤ **20 detik** (`URGENT_SECONDS`), teks berubah merah dan melakukan pop-up berulang (skala 1,0 ↔ 1,2 tiap 0,22 dtk) hingga waktu habis atau transisi.
+- Tombol Yes/Back memiliki efek hover dan klik pop-up serta SFX tombol.
+
+### 4.6 Sistem Pause
+
+`Script/pause.tscn` + `Script/pause.gd` di-instance di **Level 1–5** di dalam node `"Pause Layer"` (`CanvasLayer`, `layer = 90`, `process_mode = ALWAYS`). Level 6 tidak memuat pause. `CanvasLayer` membuat UI pause tetap menempel pada tampilan kamera/ viewport dan tidak ikut bergeser saat `Camera2D` pemain bergerak atau zoom; layer 90 berada di bawah layer transisi (100). Instance `Pause` juga ber-`process_mode = ALWAYS` agar tetap merespons saat `get_tree().paused = true`.
 
 - Tombol pause (kanan atas) membesar saat hover dan pop saat diklik.
 - Saat diklik: game di-pause, lalu `Pause Panel` beranimasi — `self_modulate` 0 → `Color(0,0,0,0.6)` cepat; `BG` dan `Akar` jatuh dari atas bersamaan, pop, lalu mengecil dan turun sedikit; setelah itu `Text`, `Restart Button`, `Level Buttons`, `Settings Button`, dan `Resume Button` muncul pop satu per satu.
@@ -199,19 +211,19 @@ Fakta penting lainnya:
 
 ### 6.2 Level 1–6
 
-Keenam level ber-root `Node2D` **tanpa skrip**, dengan struktur berulang: `ParallaxBackground`, `Platform` (`StaticBody2D`), satu `Player` (`CharacterBody2D` + kamera `zoom 1.5`; `limit_left = -60` di Level 1, `-40` di Level 2–6), satu `UFO`, satu `Portal`, checkpoint, dan berbagai hazard/platform. Kamera **tanpa position smoothing**. Keenam level juga memuat instance `Script/pause.tscn` bernama `Pause`. `Level 6.tscn` memakai struktur dan jumlah entitas yang sama dengan Level 5.
+Keenam level ber-root `Node2D` **tanpa skrip**, dengan struktur berulang: `ParallaxBackground`, `Platform` (`StaticBody2D`), satu `Player` (`CharacterBody2D` + kamera `zoom 1.5`; `limit_left = -60` di Level 1, `-40` di Level 2–6), satu `UFO`, satu `Portal`, checkpoint, dan berbagai hazard/platform. Kamera **tanpa position smoothing**. Level 1–5 memuat instance `Script/pause.tscn` bernama `Pause`; Level 1 dan Level 6 juga memuat instance `Intro Text level.tscn` di dalam `"Intro Layer"` (`CanvasLayer`, layer 80). `Level 6.tscn` kini lebih pendek dan tidak memuat pause.
 
 | Konten | L1 | L2 | L3 | L4 | L5 | L6 |
 | :--- | ---: | ---: | ---: | ---: | ---: | ---: |
-| Checkpoint | 1 | 1 | 2 | 2 | 2 | 2 |
-| Platform hilang (instance + inline) | 1 | 3 | 4 | 4 | 5 | 5 |
-| Moving platform | 0 | 1 | 3 | 4 | 3 | 3 |
-| Rotating platform | 0 | 2 | 3 | 3 | 4 | 4 |
+| Checkpoint | 1 | 1 | 2 | 2 | 2 | 0 |
+| Platform hilang (instance + inline) | 1 | 3 | 4 | 4 | 5 | 4 |
+| Moving platform | 0 | 1 | 3 | 4 | 3 | 1 |
+| Rotating platform | 0 | 2 | 3 | 3 | 4 | 3 |
 | Rotating saw | 0 | 0 | 2 | 5 | 4 | 4 |
-| Multi-rotating saw | 0 | 0 | 1 | 1 | 2 | 2 |
+| Multi-rotating saw | 0 | 0 | 1 | 1 | 2 | 1 |
 | Phi trampoline | 0 | 0 | 0 | 1 | 1 | 1 |
-| Enemy Alpha | 0 | 0 | 0 | 3 | 4 | 4 |
-| Gerigi besar | 0 | 0 | 0 | 0 | 2 | 2 |
+| Enemy Alpha | 0 | 0 | 0 | 3 | 4 | 2 |
+| Gerigi besar | 0 | 0 | 0 | 0 | 2 | 1 |
 | ParallaxLayer | 5 | 6 | 8 | 11 | 12 | 12 |
 | Player / Kamera / Portal / UFO | 1 | 1 | 1 | 1 | 1 | 1 |
 
@@ -225,7 +237,34 @@ Keenam level ber-root `Node2D` **tanpa skrip**, dengan struktur berulang: `Paral
 
 **Level 5** — Ujian akhir & paling lengkap: 4 rotating saw, 2 multi-saw (salah satu `revolution_speed=70`, orbit 190), 5 platform hilang, 3 moving platform, 4 rotating platform, 1 trampoline Φ (1200), 4 Enemy Alpha (dua di antaranya `move_speed=120`), **2 gerigi besar** (`left_limit_x=-200`, `right_limit_x=200`, `move_speed=140`), 2 checkpoint, portal akhir x≈12403.
 
-**Level 6** — Scene keenam dengan susunan node dan jumlah entitas yang sama dengan Level 5 (12 `ParallaxLayer`, 5 platform hilang, 4 rotating saw, 2 multi-saw, 4 Enemy Alpha, 2 gerigi besar, 1 trampoline Φ, 2 checkpoint, satu Portal).
+**Level 6** — Final Round 1: 12 `ParallaxLayer`, 4 platform hilang, 1 moving platform, 3 rotating platform, 4 rotating saw, 1 multi-saw, 1 trampoline Φ (1000), 2 Enemy Alpha, 1 gerigi besar, **tanpa checkpoint dan tanpa Pause**, satu Portal di x≈7520. Narasi intro dengan countdown 120 dtk; bila waktu habis, pemain kembali ke menu dengan panel Level terbuka.
+
+### 6.3 Level 7–12 (Round 2)
+
+Keenam scene ini **dirancang ulang dari nol**, bukan salinan Level 5/6. Tiap level memakai rantai platform buatan sendiri: segmen lantai berupa `RectangleShape2D` unik (`SegmentShape0…`) yang ditempatkan pada koordinat yang direncanakan, dengan jarak lompat 150–160 px dan kenaikan permukaan 40–120 px. Hanya aset seni, `SpriteFrames`, dan skrip yang dipakai ulang dari Level 5 — tata letak, jumlah segmen, dan penempatan hazard berbeda di setiap level.
+
+| Konten | L7 | L8 | L9 | L10 | L11 | L12 |
+| :--- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Segmen platform | 12 | 13 | 14 | 15 | 16 | 10 |
+| Rotating saw | 4 | 5 | 6 | 7 | 8 | 6 |
+| Multi-rotating saw | 2 | 3 | 4 | 4 | 5 | 3 |
+| Platform hilang | 3 | 4 | 4 | 5 | 5 | 4 |
+| Moving platform | 2 | 2 | 2 | 2 | 2 | 2 |
+| Rotating platform | 2 | 3 | 3 | 3 | 4 | 2 |
+| Enemy Alpha | 3 | 4 | 5 | 5 | 6 | 3 |
+| Gerigi besar | 1 | 1 | 1 | 1 | 2 | 2 |
+| Trampoline Φ | 1 | 1 | 2 | 2 | 2 | 1 |
+| Checkpoint | 2 | 2 | 2 | 2 | 2 | 0 |
+| Pause | ya | ya | ya | ya | ya | tidak |
+| Intro | tidak | tidak | tidak | tidak | tidak | tidak |
+
+**Level 7** — 12 segmen sepanjang ≈10.200 px, gap 150–170 px, empat rotating saw di tepi jurang, dua multi-saw, dua moving platform sebagai jembatan, satu gerigi besar, trampoline Φ, dan dua checkpoint. Kecepatan hazard ×1,10 — sedikit di atas Level 5.
+
+**Level 8–11** — Rantai platform memanjang (13/14/15/16 segmen) dengan variasi ketinggian makin curam; faktor kecepatan ×1,18 / ×1,25 / ×1,32 / ×1,40, `disappear_delay` 0,80 → 0,65, `respawn_delay` 1,15 → 1,30, serta penambahan saw, multi-saw, dan musuh di setiap level.
+
+**Level 12** — Final Round 2 dengan 10 segmen yang **mendaki**: permukaan naik dari y≈560 ke y≈320, tetapi semua lompatan masih dalam jangkauan double-jump; trampoline Φ membantu transisi awal. **Tanpa checkpoint dan tanpa Pause**, narasi intro sengaja dihapus dulu (gameplay diprioritaskan), kecepatan hazard ×1,45. Portal Level 12 kembali ke Main Menu dengan panel Level terbuka.
+
+**Catatan unlock:** `get_highest_unlocked_level()` kini juga membaca `completed_levels`. Level 6 yang diselesaikan sebelum scene Level 7 ada tetap membuka tombol Level 7 setelah scene tersebut tersedia.
 
 ---
 
@@ -241,12 +280,12 @@ project/
 │   ├── BGM/
 │   │   ├── BGM Main menu.mp3 (+ .import)
 │   │   └── BGM Gameplay.mp3 (+ .import)
-│   └── SFX/                         (16 file .mp3 + .import: Breath For Idle, Jump,
+│   └── SFX/                         (17 file .mp3 + .import: Breath For Idle, Jump,
 │                                    Double Jump, Landing, SFX Button Clicked/Hover,
 │                                    SFX Check Point, SFX Death Jatuh/Terkena Pisau/
 │                                    Terkena Enemy, SFX Go Portal, SFX Menginjak Enemy,
-│                                    SFX Spawn Player, SFX UFO Datang, Transition SFX,
-│                                    SFX UI Pop Open)
+│                                    SFX Spawn Player, SFX UFO Datang, SFX Text intro,
+│                                    Transition SFX, SFX UI Pop Open)
 ├── Asset/
 │   ├── Check Point/
 │   │   ├── check point sebelum/     (Checkpoint_Before_01..12.png + .import)
@@ -256,6 +295,8 @@ project/
 │   │   └── Enemy Alpha mati/        (Mati 01..06.png + .import)
 │   ├── Gerigi Besar/                (Gerigi 01 1..12 1.png, Track Gerigi Besar.png + .import)
 │   ├── Gerigi pisau/                (x_putar_01..12.png, Revolusi FIX.png + .import)
+│   ├── Intro Level/                 (Yes button.png, Back to menu button.png,
+│   │                                Orbitron PERSONAL USE ONLY!.ttf + .import)
 │   ├── Karakter/
 │   │   ├── Death 01..08.png, Idle 01..06.png, Jump 01..08.png,
 │   │   │   Efek partikel slash lompat.png (+ .import)
@@ -284,9 +325,11 @@ project/
 │   ├── Level 6.tscn
 │   └── Main Menu.tscn
 ├── Script/
+│   ├── Intro Text level.tscn
 │   ├── audio_manager.gd
 │   ├── character_scene.tscn
 │   ├── checkpoint.gd
+│   ├── intro_text_level.gd
 │   ├── checkpoint.gd.uid
 │   ├── disappearing_platform.gd
 │   ├── disappearing_platform.gd.uid
@@ -336,7 +379,7 @@ project/
 
 `Asset/` berisi **22 folder**, **519 file**: 258 `.png`, 1 `.jpg` (`BackGround.jpg`), 259 `.import`, dan 1 `.tscn` (`Transisi.tscn`). Dua file BGM `.mp3` berada di luar `Asset/`, yaitu di `Audio/BGM/`.
 
-Ada **2 file BGM MP3** di `Audio/BGM/` (menu dan gameplay) dan **16 file SFX MP3** di `Audio/SFX/`. Slider MUSIC dan SFX keduanya aktif mengendalikan bus masing-masing.
+Ada **2 file BGM MP3** di `Audio/BGM/` (menu dan gameplay) dan **17 file SFX MP3** di `Audio/SFX/`. Slider MUSIC dan SFX keduanya aktif mengendalikan bus masing-masing.
 
 ---
 

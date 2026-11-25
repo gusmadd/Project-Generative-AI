@@ -7,6 +7,8 @@ const LEVEL_ASSET_DIRECTORY := "res://Asset/Menu/Buttton levels"
 const ROUND_TEXT_COLOR := Color(0.75, 0.95, 1.0, 1.0)
 const NAV_COLOR_ENABLED := Color(1.0, 1.0, 1.0, 1.0)
 const NAV_COLOR_DISABLED := Color(0.42, 0.45, 0.55, 0.75)
+const SLIDE_DURATION: float = 0.3
+const SLIDE_DISTANCE: float = 160.0
 
 @onready var menu_buttons: VBoxContainer = $MenuButtons
 @onready var play_button: TextureButton = $MenuButtons/PlayButton
@@ -29,6 +31,7 @@ const NAV_COLOR_DISABLED := Color(0.42, 0.45, 0.55, 0.75)
 
 var round_nodes: Dictionary = {}
 var level_buttons: Dictionary = {}
+var button_original_positions: Dictionary = {}
 var current_round: int = 1
 var button_tweens: Dictionary = {}
 var hovered_buttons: Dictionary = {}
@@ -83,6 +86,7 @@ func _ready() -> void:
 				push_error("Round %d is missing the Level %d button." % [round_number, level_number])
 				continue
 			level_buttons[level_number] = level_button
+			button_original_positions[level_number] = level_button.position
 			_connect_animated_button(level_button)
 			level_button.pressed.connect(_on_level_pressed.bind(level_button, level_number))
 
@@ -219,7 +223,8 @@ func _on_settings_close_pressed() -> void:
 func _on_reset_pressed() -> void:
 	await _play_click_animation(reset_button)
 	GameManager.reset_progress()
-	_update_level_buttons()
+	current_round = 1
+	_apply_round_state(current_round)
 
 
 func _initialize_settings() -> void:
@@ -269,6 +274,7 @@ func _on_close_pressed() -> void:
 	levels_panel.visible = false
 	levels_panel.scale = Vector2.ONE
 	levels_panel.modulate.a = 1.0
+	current_round = 1
 	menu_buttons.visible = true
 
 
@@ -287,17 +293,58 @@ func _on_back_pressed() -> void:
 	_switch_to_round(current_round - 1)
 
 
+func _get_level_buttons_for_round(round_number: int) -> Dictionary:
+	var result: Dictionary = {}
+	var first_level := (round_number - 1) * LEVELS_PER_ROUND + 1
+	for level_number in range(first_level, first_level + LEVELS_PER_ROUND):
+		var button: TextureButton = level_buttons.get(level_number)
+		if button != null:
+			result[level_number] = button
+	return result
+
+
 func _switch_to_round(target_round: int) -> void:
 	if target_round == current_round or target_round < 1 or target_round > ROUND_COUNT:
 		return
 
-	var current_node: Control = round_nodes.get(current_round)
-	var next_node: Control = round_nodes.get(target_round)
+	var current_node: Control = round_nodes.get(current_round) as Control
+	var next_node: Control = round_nodes.get(target_round) as Control
 	if current_node == null or next_node == null:
 		return
 
-	current_node.visible = false
+	var move_left := target_round > current_round
+	var current_offset := -SLIDE_DISTANCE if move_left else SLIDE_DISTANCE
+	var next_offset := SLIDE_DISTANCE if move_left else -SLIDE_DISTANCE
+
+	# Slide current round level buttons out
+	var current_buttons: Dictionary = _get_level_buttons_for_round(current_round)
+	for level_number in current_buttons.keys():
+		var button: TextureButton = current_buttons[level_number]
+		if button == null:
+			continue
+		var start_pos: Vector2 = button_original_positions.get(level_number, button.position)
+		var end_pos := Vector2(start_pos.x + current_offset, start_pos.y)
+		var tween: Tween = create_tween()
+		tween.tween_property(button, "position", end_pos, SLIDE_DURATION).set_trans(
+			Tween.TRANS_SINE
+		).set_ease(Tween.EASE_OUT)
+
+	# Position next round level buttons off-screen, then slide in
 	next_node.visible = true
+	var next_buttons: Dictionary = _get_level_buttons_for_round(target_round)
+	for level_number in next_buttons.keys():
+		var button: TextureButton = next_buttons[level_number]
+		if button == null:
+			continue
+		var start_pos: Vector2 = button_original_positions.get(level_number, button.position)
+		var offscreen_pos := Vector2(start_pos.x + next_offset, start_pos.y)
+		button.position = offscreen_pos
+		var tween: Tween = create_tween()
+		tween.tween_property(button, "position", start_pos, SLIDE_DURATION).set_trans(
+			Tween.TRANS_SINE
+		).set_ease(Tween.EASE_OUT)
+
+	current_node.visible = false
 
 	_apply_round_state(target_round)
 	_play_round_text_intro()
@@ -396,11 +443,19 @@ func _update_level_buttons() -> void:
 		elif GameManager.is_level_unlocked(level_number):
 			state = "Unlock"
 
-		var texture_path := "%s/State=%s, Level=%d.png" % [
-			LEVEL_ASSET_DIRECTORY,
-			state,
-			level_number,
-		]
+		var texture_path: String = ""
+		if level_number <= 10:
+			texture_path = "%s/State=%s, Level=%d.png" % [
+				LEVEL_ASSET_DIRECTORY,
+				state,
+				level_number,
+			]
+		else:
+			texture_path = "%s/Level %d · %s.png" % [
+				LEVEL_ASSET_DIRECTORY,
+				level_number,
+				state,
+			]
 		if ResourceLoader.exists(texture_path):
 			var texture := load(texture_path) as Texture2D
 			if texture != null:

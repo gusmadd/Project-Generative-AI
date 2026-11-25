@@ -1,7 +1,5 @@
 [gd_scene format=3 uid="uid://dspkun6n1cfak"]
 
-[ext_resource type="PackedScene" path="res://Script/pause.tscn" id="99_pause"]
-
 [ext_resource type="Texture2D" uid="uid://bp021jdeyxktc" path="res://Asset/Level Asset/BackGround.jpg" id="1_gbpm5"]
 [ext_resource type="Texture2D" uid="uid://bgxh4qb4ednep" path="res://Asset/Level Asset/Minus 1.png" id="2_a2e28"]
 [ext_resource type="Script" uid="uid://br1tnc2bs6bg" path="res://Script/disappearing_platform.gd" id="3_ap8xt"]
@@ -101,6 +99,7 @@
 [ext_resource type="Texture2D" uid="uid://iolit4oskp7i" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_09.png" id="97_c7f1s"]
 [ext_resource type="Texture2D" uid="uid://q2k36rxo6ict" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_10.png" id="98_bgohr"]
 [ext_resource type="Texture2D" uid="uid://d1ikb6uuepf4w" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_11.png" id="99_2dant"]
+[ext_resource type="PackedScene" uid="uid://fb02dujtj1to" path="res://Script/pause.tscn" id="99_pause"]
 [ext_resource type="Texture2D" uid="uid://c2e7fkisvedw" path="res://Asset/Check Point/check point sebelum/Checkpoint_Before_12.png" id="100_3ee7l"]
 [ext_resource type="Texture2D" uid="uid://2seiykuswvwo" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_01.png" id="101_jcvll"]
 [ext_resource type="Texture2D" uid="uid://b7f4suw6ljk5r" path="res://Asset/Check Point/check point sesudah/Checkpoint_After_02.png" id="102_ad5cb"]
@@ -158,9 +157,6 @@ points = PackedVector2Array(-27.5, -212.49994, 30, -212.49994, 250, 182.5, 222.5
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_irab5"]
 points = PackedVector2Array(-317.5, -242.49994, -77.5, -242.49994, -77.5, -207.49994, -280, -207.49994, -280, 207.5, -77.5, 207.5, -77.5, 240, -317.5, 240)
 
-[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_gxwcr"]
-points = PackedVector2Array(-29, -12, -1, -28, 27, -12, 49, -32, 60, -22, 36, 5, 50, 22, 60, 16, 61, 23, 48, 36, 26, 23, 5, 36, -12, 36, -29, 25, -34, 6)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_7tj8m"]
 animations = [{
 "frames": [{
@@ -209,6 +205,9 @@ animations = [{
 "name": &"default",
 "speed": 10.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8d8pf"]
+size = Vector2(93, 69)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qitbi"]
 size = Vector2(91, 65)
@@ -1272,13 +1271,13 @@ script = ExtResource("12_1ybqs")
 left_distance = 170.0
 right_distance = 170.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyAlpha" unique_id=1376312110]
-position = Vector2(-14, 9)
-shape = SubResource("ConvexPolygonShape2D_gxwcr")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="EnemyAlpha" unique_id=1503227941]
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_7tj8m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyAlpha" unique_id=1000045050]
+position = Vector2(-0.5, 12.5)
+shape = SubResource("RectangleShape2D_8d8pf")
 
 [node name="EnemyAlpha4" type="CharacterBody2D" parent="." unique_id=898955733]
 position = Vector2(2585, 234)
@@ -1443,8 +1442,9 @@ position = Vector2(-5, 1)
 scale = Vector2(0.3, 0.3)
 shape = SubResource("CapsuleShape2D_3atcg")
 
-[node name="Pause Layer" type="CanvasLayer" parent="."]
-layer = 90
+[node name="Pause Layer" type="CanvasLayer" parent="." unique_id=1546384490]
 process_mode = 3
+layer = 90
+visible = false
 
-[node name="Pause" parent="Pause Layer" instance=ExtResource("99_pause")]
+[node name="Pause" parent="Pause Layer" unique_id=532235358 instance=ExtResource("99_pause")]

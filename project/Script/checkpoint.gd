@@ -23,7 +23,15 @@ func _ready() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if activated or not body.has_method("activate_checkpoint"):
 		return
+	_try_activate(body, 40)
+
+
+func _try_activate(body: Node2D, attempts_left: int) -> void:
+	if activated or attempts_left <= 0 or not is_instance_valid(body):
+		return
 	if not bool(body.call("activate_checkpoint", body.global_position)):
+		await get_tree().create_timer(0.25).timeout
+		_try_activate(body, attempts_left - 1)
 		return
 
 	activated = true

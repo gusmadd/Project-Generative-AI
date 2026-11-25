@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://shubvlopxymy"]
 
+[ext_resource type="PackedScene" path="res://Script/Intro Text level.tscn" id="98_intro"]
 [ext_resource type="Texture2D" uid="uid://bp021jdeyxktc" path="res://Asset/Level Asset/BackGround.jpg" id="1_wtcfe"]
 [ext_resource type="Texture2D" uid="uid://bgxh4qb4ednep" path="res://Asset/Level Asset/Minus 1.png" id="2_0e48y"]
 [ext_resource type="Texture2D" uid="uid://commadkrs8jwr" path="res://Asset/Karakter/Death 01.png" id="3_2nhjh"]
@@ -773,3 +774,10 @@ process_mode = 3
 layer = 90
 
 [node name="Pause" parent="Pause Layer" unique_id=284216096 instance=ExtResource("99_pause")]
+
+[node name="Intro Layer" type="CanvasLayer" parent="."]
+layer = 80
+process_mode = 1
+
+[node name="Intro" parent="Intro Layer" instance=ExtResource("98_intro")]
+countdown_seconds = 60.0

@@ -72,6 +72,7 @@
 [ext_resource type="Texture2D" uid="uid://caum2611b0ru1" path="res://Asset/Portal/Portal Theta 06.png" id="95_m7q4l"]
 [ext_resource type="Texture2D" uid="uid://be1tx6bpnb4kn" path="res://Asset/Portal/Portal Theta 07.png" id="96_q51wr"]
 [ext_resource type="Texture2D" uid="uid://dov53x8ai6as7" path="res://Asset/Portal/Portal Theta 08.png" id="97_ot2ta"]
+[ext_resource type="PackedScene" uid="uid://b5vgjdda84qm6" path="res://Script/Intro Text level.tscn" id="98_intro"]
 [ext_resource type="Texture2D" uid="uid://csnlaxlipybu" path="res://Asset/Portal/Portal Theta 09.png" id="98_mnpwu"]
 [ext_resource type="Texture2D" uid="uid://c0hvsvp4bb1o7" path="res://Asset/Portal/Portal Theta 10.png" id="99_tfj7k"]
 [ext_resource type="Texture2D" uid="uid://dluk3oeqav0x2" path="res://Asset/Portal/Portal Theta 11.png" id="100_c6n3k"]
@@ -873,7 +874,7 @@ fade_duration = 0.1
 respawn_delay = 4.0
 
 [node name="DisappearingPlatform3" parent="." unique_id=523734151 instance=ExtResource("4_nt7ey")]
-position = Vector2(5919, -40)
+position = Vector2(5830, -40)
 disappear_delay = 0.6
 flash_opacity = 0.2
 idle_flash_duration = 0.7
@@ -882,7 +883,7 @@ fade_duration = 0.1
 respawn_delay = 4.0
 
 [node name="DisappearingPlatform4" parent="." unique_id=5061653 instance=ExtResource("4_nt7ey")]
-position = Vector2(6424, -34)
+position = Vector2(6182, -34)
 disappear_delay = 0.6
 flash_opacity = 0.2
 idle_flash_duration = 0.7
@@ -905,7 +906,7 @@ position = Vector2(-57.5, 22.5)
 shape = SubResource("RectangleShape2D_01k2u")
 
 [node name="Rotation Platform" type="AnimatableBody2D" parent="." unique_id=1994679746]
-position = Vector2(6841, -37)
+position = Vector2(6595, -37)
 script = ExtResource("6_1e4bl")
 
 [node name="Sprite2D" type="Sprite2D" parent="Rotation Platform" unique_id=1285389541]
@@ -917,7 +918,7 @@ scale = Vector2(0.4, 0.4)
 shape = SubResource("ConvexPolygonShape2D_v2yfg")
 
 [node name="Rotation Platform4" type="AnimatableBody2D" parent="." unique_id=1071968399]
-position = Vector2(4980, -56)
+position = Vector2(5029, -56)
 script = ExtResource("6_1e4bl")
 
 [node name="Sprite2D" type="Sprite2D" parent="Rotation Platform4" unique_id=1568269117]
@@ -929,7 +930,7 @@ scale = Vector2(0.4, 0.4)
 shape = SubResource("ConvexPolygonShape2D_v2yfg")
 
 [node name="Rotation Platform2" type="AnimatableBody2D" parent="." unique_id=370750025]
-position = Vector2(7364, 0)
+position = Vector2(7118, 0)
 script = ExtResource("6_1e4bl")
 
 [node name="Sprite2D" type="Sprite2D" parent="Rotation Platform2" unique_id=1048898750]
@@ -1064,7 +1065,7 @@ rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_2dtbj")
 
 [node name="Portal" type="Area2D" parent="." unique_id=1276101496]
-position = Vector2(7945, -271)
+position = Vector2(7520, -146)
 script = ExtResource("89_h6qm4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Portal" unique_id=1081649788]
@@ -1078,3 +1079,10 @@ speed_scale = 2.0
 position = Vector2(-5, 1)
 scale = Vector2(0.3, 0.3)
 shape = SubResource("CapsuleShape2D_3atcg")
+
+[node name="Intro Layer" type="CanvasLayer" parent="." unique_id=243856926]
+process_mode = 1
+layer = 80
+
+[node name="Intro" parent="Intro Layer" unique_id=1492381964 instance=ExtResource("98_intro")]
+countdown_seconds = 120.0

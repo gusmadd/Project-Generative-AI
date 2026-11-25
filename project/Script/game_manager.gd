@@ -34,7 +34,12 @@ func _ready() -> void:
 
 
 func get_highest_unlocked_level() -> int:
-	return mini(highest_unlocked_level, _get_available_level_count())
+	var available := _get_available_level_count()
+	var unlocked := mini(highest_unlocked_level, available)
+	for level_number in range(1, available + 1):
+		if is_level_complete(level_number):
+			unlocked = maxi(unlocked, mini(level_number + 1, available))
+	return unlocked
 
 
 func is_level_unlocked(level_number: int) -> bool:

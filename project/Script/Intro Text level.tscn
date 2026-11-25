@@ -1,30 +1,33 @@
 [gd_scene format=3 uid="uid://b5vgjdda84qm6"]
 
-[ext_resource type="Texture2D" uid="uid://c28evniksnsqf" path="res://Asset/Intro Level/Yes button.png" id="1_aj215"]
-[ext_resource type="Texture2D" uid="uid://c2dyhkhmfdg3i" path="res://Asset/Intro Level/Back to menu button.png" id="1_w0tfw"]
+[ext_resource type="Texture2D" uid="uid://c28evniksnsqf" path="res://Asset/Intro Level/Yes button.png" id="1_c8rge"]
+[ext_resource type="Texture2D" uid="uid://c2dyhkhmfdg3i" path="res://Asset/Intro Level/Back to menu button.png" id="2_1n5h4"]
+[ext_resource type="FontFile" uid="uid://blmh7d6tdm1t1" path="res://Asset/Intro Level/Madiosa.ttf" id="2_qph0i"]
+[ext_resource type="FontFile" uid="uid://t6shw5hwnfh1" path="res://Asset/Intro Level/Orbitron PERSONAL USE ONLY!.ttf" id="font_orbitron"]
+[ext_resource type="Script" uid="uid://cs1qkii7ohsru" path="res://Script/intro_text_level.gd" id="intro_script"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8f85w"]
-atlas = ExtResource("1_aj215")
+atlas = ExtResource("1_c8rge")
 region = Rect2(0, 0, 499.8555, 92.21493)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8d8pf"]
-atlas = ExtResource("1_aj215")
+atlas = ExtResource("1_c8rge")
 region = Rect2(579.7229, 0, 500.49756, 92.16592)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xnr1l"]
-atlas = ExtResource("1_aj215")
+atlas = ExtResource("1_c8rge")
 region = Rect2(1160.0803, 0, 499.91968, 91.62272)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4ytqk"]
-atlas = ExtResource("1_w0tfw")
+atlas = ExtResource("2_1n5h4")
 region = Rect2(0, 0, 500.28708, 92.500046)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w0tfw"]
-atlas = ExtResource("1_w0tfw")
+atlas = ExtResource("2_1n5h4")
 region = Rect2(578.94446, 0, 501.7224, 92.4849)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aj215"]
-atlas = ExtResource("1_w0tfw")
+atlas = ExtResource("2_1n5h4")
 region = Rect2(1159.571, 0, 500.42896, 92.423744)
 
 [node name="Control" type="Control" unique_id=440812449]
@@ -34,24 +37,31 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("intro_script")
 
 [node name="Main Text" type="Label" parent="." unique_id=973287609]
 layout_mode = 0
-offset_left = 468.0
-offset_top = 78.0
-offset_right = 1547.0
-offset_bottom = 491.0
-text = "....."
+offset_left = 528.0
+offset_top = 68.0
+offset_right = 1512.0
+offset_bottom = 481.0
+theme_override_colors/font_color = Color(0.80784315, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_qph0i")
+theme_override_font_sizes/font_size = 45
+text = "-"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="Click every where" type="Label" parent="." unique_id=888659593]
+[node name="Click enter" type="Label" parent="." unique_id=888659593]
 layout_mode = 0
 offset_left = 472.0
 offset_top = 411.0
 offset_right = 1551.0
 offset_bottom = 520.0
-text = "click anywhere to continue"
+theme_override_fonts/font = ExtResource("font_orbitron")
+theme_override_font_sizes/font_size = 23
+text = "Click Enter To Continue"
 horizontal_alignment = 1
 vertical_alignment = 1
 
